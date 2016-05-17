@@ -1,5 +1,6 @@
 package horses;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,6 +16,8 @@ public class Horse implements Comparable<Horse> {
 	ArrayList<Integer> place;
 	double[]furlongs = new double[10];
 	String name;
+	double score;
+	Color color;
 	
 	public Horse(String name){
 		this.name = name;
@@ -27,18 +30,9 @@ public class Horse implements Comparable<Horse> {
 		canCompete = true;
 		time = new ArrayList<Double>(); 
 		place = new ArrayList<Integer>();
-	}
-	public Horse(String name, int speed, int acceleration, int stamina, int heart){
-		this.name = name;
-		age = 0;
-		maxAge = (int)(Math.random()*8 + 3);
-		this.speed = speed;
-		this.acc = acceleration;
-		this.stamina = stamina;
-		this.heart = heart;
-		canCompete = true;
-		time = new ArrayList<Double>(); 
-		place = new ArrayList<Integer>();
+		color = randomColor();
+		
+	
 	}
 	public Horse(ArrayList<String> fromFile){
 		name = fromFile.get(0);
@@ -51,7 +45,49 @@ public class Horse implements Comparable<Horse> {
 		heart = Double.parseDouble(fromFile.get(7));
 		time = new ArrayList<Double>(); 
 		place = new ArrayList<Integer>();
+		color = new Color(Integer.parseInt(fromFile.get(8)),Integer.parseInt(fromFile.get(9)),Integer.parseInt(fromFile.get(10)) );
+		
+		
 	}
+	public double calcScore(){
+		double ret = 0;
+		if(time.size() == 0){
+			return 1;
+		}
+		ret = 130-time.get(time.size()-1)-(age/2); 
+		if(ret <= 0){
+			ret = 0.01;
+		}
+		return ret;
+	}
+	
+	public Color randomColor(){
+		Color col = new Color(0);
+		int rnd = (int)(Math.random()*8);
+		switch(rnd){
+		case 0: col = (Color.BLACK);
+		break;
+		case 1: col = Color.blue;
+		break;
+		case 2: col = Color.cyan;
+		break;
+		case 3: col = Color.darkGray;
+		break;
+		case 4: col = Color.MAGENTA;
+		break;
+		case 5: col = Color.orange;
+		break;
+		case 6: col = Color.GRAY;
+		break;
+		case 7: col = Color.green;
+		break;
+		
+		}
+		
+		
+		return col;
+	}
+	
 	public void doRace(){
 		double time = 0;
 		age ++;
@@ -85,6 +121,7 @@ public class Horse implements Comparable<Horse> {
 			time += furlong;
 		}
 		time+= ((int)(Math.random()*6));
+		time+=4;
 		int ageDiff = maxAge-age;
 		if(ageDiff!= 0){
 			speed-= (10)/(ageDiff);
@@ -127,7 +164,11 @@ public class Horse implements Comparable<Horse> {
 			+ speed + ","
 			+ acc + ","
 			+ stamina + ","
-			+ heart + ",";
+			+ heart + ","
+			+ color.getRed() + ","
+			+color.getGreen() + ","
+			+ color.getBlue() + ",";
+			
 		return forRet;
 	}
 	public String toString(){

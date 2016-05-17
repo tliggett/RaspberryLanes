@@ -42,7 +42,8 @@ public class RaspberryLanes {
 	HorseList stable;
 	BetList betList;
 	private JTextField txtCashOnBet;
-	private final Action action = new SwingAction();
+	private final Action saveGame = new SwingAction();
+	private final Action newGame = new SwingAction();
 	Image img = null;
 
 	/**
@@ -146,7 +147,7 @@ public class RaspberryLanes {
 		mnFile.add(mntmNewGame);
 		
 		JMenuItem mntmSaveGame = new JMenuItem("Save Game");
-		mntmSaveGame.setAction(action);
+		mntmSaveGame.setAction(saveGame);
 		mnFile.add(mntmSaveGame);
 		
 		JMenu mnFeatures = new JMenu("Features");
@@ -272,7 +273,7 @@ public class RaspberryLanes {
 			public void actionPerformed(ActionEvent e) {
 				stable.doRace();
 				if(chckbxWatchRace.isSelected()){
-					CarRunner.main(stable);
+					RaceRunner.main(stable);
 				}
 				updateStuff();	
 			}

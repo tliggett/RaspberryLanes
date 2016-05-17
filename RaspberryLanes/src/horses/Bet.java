@@ -5,10 +5,10 @@ public class Bet {
 	double value;
 	double odds;
 	boolean winner;
-	public Bet(String horse, double v, double o){
+	public Bet(String horse, double v, HorseList stable){
 		horseName = horse;
 		value = v;
-		odds = o;
+		odds = calcOdds(stable);
 		winner = false;
 		
 		
@@ -18,6 +18,24 @@ public class Bet {
 		winner = true;
 	}
 	}
+	public double calcOdds(HorseList stable){
+		int index = 0;
+		for(int i = 0; i < stable.racers.size(); i++){
+			if(stable.racers.get(i).name.equals(horseName)){
+				index = i;
+			}}
+		
+		double odd = (stable.racers.get(index).calcScore())/(stable.sumScore());
+		int rnd =(int)(odd*100);
+		odd = rnd;
+		odd/= 100;
+		if(odd <= 0){
+			return 0.01;
+		}
+		return odd;
+		
+	}
+	
 	public int reward(){
 		if(winner){
 			return (int)(value/odds);

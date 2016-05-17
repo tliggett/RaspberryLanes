@@ -29,7 +29,13 @@ public class HorseList {
 		}
 		
 	}
-	
+	public double sumScore(){
+		double sum = 0;
+		for(Horse racer : racers){
+			sum += racer.calcScore();
+		}
+		return sum;
+	}
 	public void saveToFile() throws FileNotFoundException, UnsupportedEncodingException{
 		PrintWriter writer = new PrintWriter("src/horses/RaceHorses.txt", "UTF-8");
 		for(Horse racer : racers){
@@ -61,13 +67,29 @@ public class HorseList {
 		return timeString;
 	}
 	
-	
+	public double getHorseOdds(String horseName){
+		double retu = 0;
+		Horse horse;
+		for(Horse racer : racers){
+			if(racer.name.equals(horseName)){
+				retu = (racer.calcScore())/this.sumScore();
+			}
+		}
+		int rnd = (int)(retu * 100);
+		retu = rnd;
+		retu/= 100;
+		if(retu <= 0){
+			return 0.01;
+		}
+		return retu;
+		
+	}
 	public String toString(){
 		String timeString = "";
 		int place = 0;
 		for(int i = 0; i< racers.size();){
 			place++;
-			if(racers.get(i).age > racers.get(i).maxAge || racers.get(i).getTime() == 999 || racers.get(i).time.get(racers.get(i).time.size()-1) > 140){
+			if(racers.get(i).age > racers.get(i).maxAge || racers.get(i).getTime() == 999 || racers.get(i).getTime() > 135){
 			
 				timeString += "" + place + racers.get(i) + "---Retiring"+ "\n";	
 				racers.remove(i);
