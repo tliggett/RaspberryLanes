@@ -49,12 +49,12 @@ public class Horse implements Comparable<Horse> {
 		time = new ArrayList<Double>(); 
 		place = new ArrayList<Integer>();
 		color = new Color(Integer.parseInt(fromFile.get(8)),Integer.parseInt(fromFile.get(9)),Integer.parseInt(fromFile.get(10)) );
-		graphic = new ImagePanel("src/horses/inGame.png");
+		graphic = new ImagePanel("src/horses/LogoN.png");
 		colorGraphic();
 		
 	}
 	public void colorGraphic(){
-		
+		Color darkNavy = new Color(0, 0, 120);
 		for(int i = 0; i < graphic.image.getHeight(); i++){
 			
 			for(int j = 0; j<graphic.image.getWidth(); j++){
@@ -62,7 +62,7 @@ public class Horse implements Comparable<Horse> {
 					graphic.image.setRGB(i, j, color.getRGB());	
 				}
 				
-				if(graphic.image.getRGB(i,j) == -1){
+				if(graphic.image.getRGB(i,j) == darkNavy.getRGB()){
 					graphic.image.setRGB(i,j, color.green.getRGB());	
 				}
 				
@@ -86,11 +86,11 @@ public class Horse implements Comparable<Horse> {
 	
 	public Color randomColor(){
 		Color col = new Color(0);
-		int rnd = (int)(Math.random()*8);
+		int rnd = (int)(Math.random()*17);
 		switch(rnd){
 		case 0: col = (Color.BLACK);
 		break;
-		case 1: col = Color.blue;
+		case 1: col = Color.pink;
 		break;
 		case 2: col = Color.cyan;
 		break;
@@ -102,9 +102,26 @@ public class Horse implements Comparable<Horse> {
 		break;
 		case 6: col = Color.GRAY;
 		break;
-		case 7: col = Color.green;
+		case 7: col = Color.yellow;
 		break;
-		
+		case 8: col = new Color(153, 51, 0);
+		break;
+		case 9: col = new Color(204, 51, 0);
+		break;
+		case 10: col = new Color(102, 26, 0);
+		break;
+		case 11: col = new Color(77, 19, 0);
+		break;
+		case 12: col = new Color(26, 6, 0);
+		break;
+		case 13: col = new Color(255, 168, 128);
+		break;
+		case 14: col = new Color(255, 255, 204);
+		break;
+		case 15: col = new Color(77, 255, 136);
+		break;
+		case 16: col = new Color(153, 0, 0);
+		break;
 		}
 		
 		
