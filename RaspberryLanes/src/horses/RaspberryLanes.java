@@ -31,6 +31,7 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import java.awt.Canvas;
 
 public class RaspberryLanes {
 
@@ -94,7 +95,7 @@ public class RaspberryLanes {
 		txtRaceHorses.setForeground(new Color(220, 20, 60));
 		txtRaceHorses.setBackground(darkNavy);
 		txtRaceHorses.setText(stable.toPreview());
-		txtRaceHorses.setBounds(301, 439, 274, 339);
+		txtRaceHorses.setBounds(286, 606, 274, 92);
 		frame.getContentPane().add(txtRaceHorses);
 		txtRaceHorses.setColumns(10);
 		
@@ -109,15 +110,15 @@ public class RaspberryLanes {
 		txtPreviousWeek.setForeground(new Color(220, 20, 60));
 		txtPreviousWeek.setBackground(darkNavy);
 		txtPreviousWeek.setText("Previous Week");
-		txtPreviousWeek.setBounds(10, 433, 274, 339);
+		txtPreviousWeek.setBounds(0, 374, 274, 339);
 		frame.getContentPane().add(txtPreviousWeek);
 		txtPreviousWeek.setColumns(10);
 		
 		JLabel lblResults = new JLabel("RESULTS");
 		lblResults.setForeground(new Color(220, 20, 60));
-		lblResults.setFont(new Font("Impact", Font.PLAIN, 18));
+		lblResults.setFont(new Font("Impact", Font.PLAIN, 21));
 		lblResults.setHorizontalAlignment(SwingConstants.CENTER);
-		lblResults.setBounds(10, 405, 274, 16);
+		lblResults.setBounds(0, 73, 220, 22);
 		frame.getContentPane().add(lblResults);
 		
 		JLabel lblRaspberryLanes = new JLabel("RASPBERRY LANES");
@@ -126,13 +127,6 @@ public class RaspberryLanes {
 		lblRaspberryLanes.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblRaspberryLanes.setBounds(34, 21, 237, 46);
 		frame.getContentPane().add(lblRaspberryLanes);
-		
-		JLabel label = new JLabel("THIS WEEK");
-		label.setForeground(new Color(220, 20, 60));
-		label.setFont(new Font("Impact", Font.PLAIN, 18));
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(296, 405, 274, 16);
-		frame.getContentPane().add(label);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(255, 215, 0));
@@ -151,6 +145,10 @@ public class RaspberryLanes {
 		mntmSaveGame.setAction(saveGame);
 		mnFile.add(mntmSaveGame);
 		
+		AnimatedCar canvas = new AnimatedCar(stable);
+		canvas.setBounds(287, 73, 664, 500);
+		frame.getContentPane().add(canvas);
+		
 		JMenu mnFeatures = new JMenu("Features");
 		mnFeatures.setBackground(new Color(255, 215, 0));
 		menuBar.add(mnFeatures);
@@ -167,18 +165,18 @@ public class RaspberryLanes {
 		label_1.setForeground(new Color(255, 215, 0));
 		label_1.setFont(new Font("Impact", Font.PLAIN, 43));
 		label_1.setBackground(new Color(255, 215, 0));
-		label_1.setBounds(954, 295, 117, 89);
+		label_1.setBounds(1050, 328, 100, 56);
 		frame.getContentPane().add(label_1);
 		
 		ImagePanel selectedHorse = stable.racers.get(0).graphic;
 		selectedHorse.setBackground(darkNavy);
-		selectedHorse.setBounds(955, 200, 100, 100);
+		selectedHorse.setBounds(1050, 200, 100, 100);
 		frame.getContentPane().add(selectedHorse);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setForeground(darkNavy);
 		comboBox.setBackground(new Color(255, 250, 205));
-		comboBox.setBounds(626, 235, 237, 27);
+		comboBox.setBounds(1030, 121, 140, 27);
 		comboBox.setMaximumRowCount(20);
 		for(Horse racer : stable.racers){
 			comboBox.addItem(racer.name);
@@ -211,9 +209,10 @@ public class RaspberryLanes {
 		frame.getContentPane().add(comboBox);
 		
 		JLabel lblHorse = new JLabel("HORSE");
-		lblHorse.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblHorse.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHorse.setFont(new Font("Impact", Font.PLAIN, 15));
 		lblHorse.setForeground(new Color(220, 20, 60));
-		lblHorse.setBounds(556, 240, 70, 16);
+		lblHorse.setBounds(1040, 104, 120, 16);
 		frame.getContentPane().add(lblHorse);
 		
 		JLabel lblOdds = new JLabel("ODDS");
@@ -221,7 +220,7 @@ public class RaspberryLanes {
 		lblOdds.setFont(new Font("Wide Latin", Font.PLAIN, 13));
 		lblOdds.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblOdds.setForeground(new Color(255, 215, 0));
-		lblOdds.setBounds(954, 394, 117, 16);
+		lblOdds.setBounds(1050, 394, 100, 16);
 		frame.getContentPane().add(lblOdds);
 		
 		
@@ -229,13 +228,13 @@ public class RaspberryLanes {
 		txtCashOnBet = new JTextField();
 		txtCashOnBet.setBackground(new Color(255, 255, 224));
 		txtCashOnBet.setForeground(new Color(0, 0, 139));
-		txtCashOnBet.setBounds(626, 262, 237, 26);
+		txtCashOnBet.setBounds(1030, 160, 140, 26);
 		frame.getContentPane().add(txtCashOnBet);
 		txtCashOnBet.setColumns(10);
 		
 		ImagePanel panel = new ImagePanel("src/horses/LogoN.png");
 		panel.setBackground(darkNavy);
-		panel.setBounds(60, 79, 274, 277);
+		panel.setBounds(0, 159, 220, 203);
 		frame.getContentPane().add(panel);
 		
 		JTextArea txtrSgg = new JTextArea();
@@ -243,13 +242,14 @@ public class RaspberryLanes {
 		txtrSgg.setForeground(new Color(220, 20, 60));
 		txtrSgg.setBackground(darkNavy);
 		txtrSgg.setText("");
-		txtrSgg.setBounds(556, 313, 307, 193);
+		txtrSgg.setBounds(954, 446, 246, 139);
 		frame.getContentPane().add(txtrSgg);
 		
 		JLabel lblPlayerName = new JLabel(player.toString());
+		lblPlayerName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPlayerName.setFont(new Font("Impact", Font.PLAIN, 28));
 		lblPlayerName.setForeground(new Color(255, 215, 0));
-		lblPlayerName.setBounds(862, 35, 312, 56);
+		lblPlayerName.setBounds(1030, 36, 140, 56);
 		frame.getContentPane().add(lblPlayerName);
 		
 		JButton btnBetOnHorse = new JButton("Bet on Horse!");
@@ -266,7 +266,7 @@ public class RaspberryLanes {
 			}
 		});
 		
-		btnBetOnHorse.setBounds(954, 413, 117, 29);
+		btnBetOnHorse.setBounds(1040, 413, 120, 29);
 		frame.getContentPane().add(btnBetOnHorse);
 		
 		JButton btnRaceHorses = new JButton("RACE HORSES!!!");
@@ -289,13 +289,16 @@ public class RaspberryLanes {
 				for(Horse racer : stable.racers){
 					comboBox.addItem(racer.name);
 				}
+				canvas.updateStable(stable);
 			}
 			
 			public void actionPerformed(ActionEvent e) {
 				stable.doRace();
+				
 				if(chckbxWatchRace.isSelected()){
-					RaceRunner.main(stable);
+					canvas.startTimer();
 				}
+				
 				updateStuff();	
 			}
 				
@@ -304,19 +307,32 @@ public class RaspberryLanes {
 			
 		});
 		
-		btnRaceHorses.setBounds(1008, 630, 166, 68);
+		btnRaceHorses.setBounds(1008, 631, 166, 68);
 		frame.getContentPane().add(btnRaceHorses);
 		
 		JLabel label_2 = new JLabel("BET");
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		label_2.setForeground(new Color(220, 20, 60));
-		label_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label_2.setBounds(556, 267, 70, 16);
+		label_2.setFont(new Font("Impact", Font.PLAIN, 15));
+		label_2.setBounds(1040, 146, 120, 16);
 		frame.getContentPane().add(label_2);
 		
+		JLabel label_3 = new JLabel("WINNER");
+		label_3.setHorizontalAlignment(SwingConstants.CENTER);
+		label_3.setForeground(new Color(220, 20, 60));
+		label_3.setFont(new Font("Impact", Font.PLAIN, 18));
+		label_3.setBounds(0, 102, 220, 16);
+		frame.getContentPane().add(label_3);
 		
 		
 		
 		
+		
+		
+		
+	}
+	public void updateStuff(){
+		updateStuff();	
 	}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {

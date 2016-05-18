@@ -27,13 +27,13 @@ class AnimatedCar extends Canvas
 	private Timer timer;
 	private final static int SLEEP = 10;  //bigger # = slower animation	
 	BufferedImage img = null;
-	
-	public AnimatedCar()
+	HorseList stable;
+	public AnimatedCar(HorseList racers)
 	{
-		setSize(800, 600);
+		setSize(664, 500);
 		setVisible(true);
 		setBackground(Color.blue);
-		
+		stable = racers;
 		ActionListener paintCaller = new ActionListener(){
 			public void actionPerformed(ActionEvent event)
 			{
@@ -41,11 +41,17 @@ class AnimatedCar extends Canvas
 			}
 		};
 		timer = new Timer(SLEEP, paintCaller);
+		
+		
+		
+			
+			
+	}
+	public void updateStable(HorseList update){
+		stable = update;
+	}
+	public void startTimer(){
 		timer.start();
-		
-		
-			
-			
 	}
 	
 	public void update(Graphics window)
