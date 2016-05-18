@@ -18,6 +18,7 @@ public class Horse implements Comparable<Horse> {
 	String name;
 	double score;
 	Color color;
+	ImagePanel graphic;
 	
 	public Horse(String name){
 		this.name = name;
@@ -31,6 +32,8 @@ public class Horse implements Comparable<Horse> {
 		time = new ArrayList<Double>(); 
 		place = new ArrayList<Integer>();
 		color = randomColor();
+		graphic = new ImagePanel("src/horses/inGame.png");
+		colorGraphic();
 		
 	
 	}
@@ -46,9 +49,28 @@ public class Horse implements Comparable<Horse> {
 		time = new ArrayList<Double>(); 
 		place = new ArrayList<Integer>();
 		color = new Color(Integer.parseInt(fromFile.get(8)),Integer.parseInt(fromFile.get(9)),Integer.parseInt(fromFile.get(10)) );
-		
+		graphic = new ImagePanel("src/horses/inGame.png");
+		colorGraphic();
 		
 	}
+	public void colorGraphic(){
+		
+		for(int i = 0; i < graphic.image.getHeight(); i++){
+			
+			for(int j = 0; j<graphic.image.getWidth(); j++){
+				if(graphic.image.getRGB(i,j) == -3407872){
+					graphic.image.setRGB(i, j, color.getRGB());	
+				}
+				if(graphic.image.getRGB(i,j) == -1){
+					graphic.image.setRGB(i,j, color.green.getRGB());	
+				}
+				
+			}
+		}
+		graphic.repaint();
+		
+	}
+	
 	public double calcScore(){
 		double ret = 0;
 		if(time.size() == 0){

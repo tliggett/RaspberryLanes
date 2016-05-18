@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 
 public class ImagePanel extends JPanel{
 
-    private BufferedImage image;
+    public BufferedImage image;
 
-    public ImagePanel() {
+    public ImagePanel(String filename) {
        try {                
-          image = ImageIO.read(new File("src/horses/LogoN.png"));
+          image = ImageIO.read(new File(filename));
        } catch (IOException ex) {
             // handle exception...
        }

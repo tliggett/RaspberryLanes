@@ -166,8 +166,13 @@ public class RaspberryLanes {
 		label_1.setForeground(new Color(255, 215, 0));
 		label_1.setFont(new Font("Impact", Font.PLAIN, 43));
 		label_1.setBackground(new Color(255, 215, 0));
-		label_1.setBounds(954, 231, 117, 89);
+		label_1.setBounds(954, 418, 117, 89);
 		frame.getContentPane().add(label_1);
+		
+		ImagePanel selectedHorse = stable.racers.get(0).graphic;
+		selectedHorse.setBackground(darkNavy);
+		selectedHorse.setBounds(900, 79, 274, 277);
+		frame.getContentPane().add(selectedHorse);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setForeground(darkNavy);
@@ -200,7 +205,7 @@ public class RaspberryLanes {
 		lblOdds.setFont(new Font("Wide Latin", Font.PLAIN, 13));
 		lblOdds.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblOdds.setForeground(new Color(255, 215, 0));
-		lblOdds.setBounds(954, 204, 117, 16);
+		lblOdds.setBounds(954, 388, 117, 16);
 		frame.getContentPane().add(lblOdds);
 		
 		
@@ -212,11 +217,10 @@ public class RaspberryLanes {
 		frame.getContentPane().add(txtCashOnBet);
 		txtCashOnBet.setColumns(10);
 		
-		ImagePanel panel = new ImagePanel();
+		ImagePanel panel = new ImagePanel("src/horses/LogoN.png");
 		panel.setBackground(darkNavy);
 		panel.setBounds(60, 79, 274, 277);
 		frame.getContentPane().add(panel);
-		
 		
 		JTextArea txtrSgg = new JTextArea();
 		txtrSgg.setForeground(new Color(220, 20, 60));
@@ -245,7 +249,7 @@ public class RaspberryLanes {
 			}
 		});
 		
-		btnBetOnHorse.setBounds(954, 341, 117, 29);
+		btnBetOnHorse.setBounds(954, 510, 117, 29);
 		frame.getContentPane().add(btnBetOnHorse);
 		
 		JButton btnRaceHorses = new JButton("RACE HORSES!!!");
