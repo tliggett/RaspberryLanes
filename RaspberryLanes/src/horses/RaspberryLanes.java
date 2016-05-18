@@ -190,6 +190,7 @@ public class RaspberryLanes {
 		
 				label_1.setText("" + stable.getHorseOdds(horseName));
 				
+				
 			}
 			}});
 		frame.getContentPane().add(comboBox);
