@@ -25,6 +25,7 @@ public class Horse implements Comparable<Horse> {
 	Color color;
 	ImagePanel graphic;
 	Image image;
+	double x;
 	
 	public Horse(String name) throws IOException{
 		this.name = name;
@@ -40,6 +41,7 @@ public class Horse implements Comparable<Horse> {
 		color = randomColor();
 		graphic = new ImagePanel("src/horses/inGame.png");
 		image = ImageIO.read(new File("src/horses/LogoN.png"));
+		double x = 0;
 		colorGraphic();
 		
 	
@@ -58,34 +60,13 @@ public class Horse implements Comparable<Horse> {
 		color = new Color(Integer.parseInt(fromFile.get(8)),Integer.parseInt(fromFile.get(9)),Integer.parseInt(fromFile.get(10)) );
 		graphic = new ImagePanel("src/horses/LogoN.png");
 		image = ImageIO.read(new File("src/horses/LogoN.png"));
-		colorGraphic();
-		
+		double x = 0;
+		colorGraphic();	
 	}
-	/*public void colorImage(){
-		Color darkNavy = new Color(0, 0, 120);
-		Color track = new Color(255,208,115);
-		for(int i = 0; i < image.getHeight(null); i++){
-			
-			for(int j = 0; j<image.getWidth(null); j++){
-				if(image.get == -3407872){
-					image.setRGB(i, j, color.getRGB());	
-				}
-				
-				if(image.getRGB(i,j) == darkNavy.getRGB()){
-					image.setRGB(i,j, track.getRGB());	
-				}
-				
-			}
-		}
-		
-		
-	}*/
-	
 	public void colorGraphic(){
 		Color darkNavy = new Color(0, 0, 120);
 		Color track = new Color(255,208,115);
 		for(int i = 0; i < graphic.image.getHeight(); i++){
-			System.out.println("" + graphic.image.getRGB(0,0));
 			for(int j = 0; j<graphic.image.getWidth(); j++){
 				if(graphic.image.getRGB(i,j) == -3407872){
 					graphic.image.setRGB(i, j, color.getRGB());	
@@ -101,7 +82,7 @@ public class Horse implements Comparable<Horse> {
 		
 	}
 	public double getPPS(){
-		return 700/time.get(time.size()-1);
+		return 700/ time.get(0);
 	}
 	
 	public double calcScore(){
@@ -130,29 +111,25 @@ public class Horse implements Comparable<Horse> {
 		break;
 		case 4: col = Color.MAGENTA;
 		break;
-		case 5: col = Color.orange;
+		case 5: col = Color.GRAY;
 		break;
-		case 6: col = Color.GRAY;
+		case 6: col = new Color(153, 51, 0);
 		break;
-		case 7: col = Color.yellow;
+		case 7: col = new Color(204, 51, 0);
 		break;
-		case 8: col = new Color(153, 51, 0);
+		case 8: col = new Color(102, 26, 0);
 		break;
-		case 9: col = new Color(204, 51, 0);
+		case 9: col = new Color(77, 19, 0);
 		break;
-		case 10: col = new Color(102, 26, 0);
+		case 10: col = new Color(26, 6, 0);
 		break;
-		case 11: col = new Color(77, 19, 0);
+		case 11: col = new Color(255, 168, 128);
 		break;
-		case 12: col = new Color(26, 6, 0);
+		case 12: col = new Color(255, 255, 204);
 		break;
-		case 13: col = new Color(255, 168, 128);
+		case 13: col = new Color(77, 255, 136);
 		break;
-		case 14: col = new Color(255, 255, 204);
-		break;
-		case 15: col = new Color(77, 255, 136);
-		break;
-		case 16: col = new Color(153, 0, 0);
+		case 14: col = new Color(153, 0, 0);
 		break;
 		}
 		

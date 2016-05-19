@@ -38,6 +38,10 @@ class AnimatedCar extends Canvas
 		ActionListener paintCaller = new ActionListener(){
 			public void actionPerformed(ActionEvent event)
 			{
+				for(int i = 0; i <stable.racers.size(); i++){
+					stable.racers.get(i).x += stable.racers.get(i).getPPS();
+				}
+				
 				repaint();  //each time timer fires it will call paint	
 			}
 		};
@@ -49,7 +53,13 @@ class AnimatedCar extends Canvas
 			
 	}
 	public void updateStable(HorseList update){
-		stable = update;
+		stable.racers.removeAll(stable.racers);
+		for(Horse horse : update.racers){
+			stable.racers.add(horse);
+		}
+		int i =1;
+		i++;
+		
 	}
 	public void startTimer(){
 		timer.start();
@@ -69,8 +79,9 @@ class AnimatedCar extends Canvas
 			window.setColor(Color.white);
 			window.fillRect(1100, 100, 50, 700);	
 			for(int i = 0; i <stable.racers.size(); i++){
-				window.drawImage(stable.racers.get(i).graphic.image, 0, (i*30) + 140, 30, 30, null);
-				}
+				window.drawImage(stable.racers.get(i).graphic.image, (int)x, (i*30) + 140, 30, 30, null);
+				
+			}
 			
 			  }
 

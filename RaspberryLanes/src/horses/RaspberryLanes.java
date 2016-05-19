@@ -168,7 +168,7 @@ public class RaspberryLanes {
 		winnerName.setBounds(0, 127, 220, 35);
 		frame.getContentPane().add(winnerName);
 		
-		ImagePanel selectedHorse = stable.racers.get(0).graphic;
+		ImagePanel selectedHorse = new ImagePanel("src/horses/LogoN.png");
 		selectedHorse.setBackground(darkNavy);
 		selectedHorse.setBounds(1050, 200, 100, 100);
 		frame.getContentPane().add(selectedHorse);
@@ -187,6 +187,7 @@ public class RaspberryLanes {
 			public void actionPerformed(ActionEvent e) {
 				if(comboBox.getItemCount()>0){
 				String horseName = comboBox.getSelectedItem().toString();
+				
 				for(int i = 0; i < selectedHorse.image.getHeight(); i++){
 					
 					for(int j = 0; j<selectedHorse.image.getWidth(); j++){
@@ -304,7 +305,6 @@ public class RaspberryLanes {
 					int rand = (int)(Math.random()*(horsenames.size()-1));
 					stable.racers.add(new Horse(horsenames.get(rand).get(0)));	
 				}
-				
 				txtrSgg.setText("");
 				player.cash += betList.reward(stable);
 				lblPlayerName.setText(player.toString());
@@ -334,6 +334,7 @@ public class RaspberryLanes {
 				stable.doRace();
 				
 				if(chckbxWatchRace.isSelected()){
+					canvas.updateStable(stable);
 					canvas.startTimer();
 				}
 				
