@@ -82,7 +82,11 @@ public class Horse implements Comparable<Horse> {
 		
 	}
 	public double getPPS(){
-		return 700/ time.get(0);
+		if(time.size() > 0){
+		return 700/ time.get(time.size()-1);
+		}else{
+			return 0;
+		}
 	}
 	
 	public double calcScore(){

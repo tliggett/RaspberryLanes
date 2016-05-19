@@ -9,6 +9,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
+
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
@@ -37,18 +39,28 @@ import javax.swing.JInternalFrame;
 public class RaspberryLanes {
 
 	private JFrame frame;
-	private JTextArea txtPreviousWeek;
-	Player player;
-	ArrayList<ArrayList<String>> horsenames;
-	HorseList stable;
-	BetList betList;
+	private static JTextArea txtPreviousWeek;
+	static Player player;
+	static ArrayList<ArrayList<String>> horsenames;
+	static HorseList stable;
+	static BetList betList;
 	private JTextField txtCashOnBet;
 	private final Action saveGame = new SwingAction();
 	private final Action newGame = new SwingAction();
 	Image img = null;
 	Color curColor = new Color(-3407872);
-	Color winColor = new Color(-3407872);
-
+	static Color winColor = new Color(-3407872);
+	private Timer timer;
+	static int i;
+	
+	static JCheckBox chckbxWatchRace;
+	static JComboBox<String> comboBox;
+	static JTextArea txtrSgg;
+	static JLabel label_3;
+	static JLabel lblTime;
+	static JLabel lblPlayerName;
+	static JLabel winnerName;
+	static ImagePanel panel;
 	/**
 	 * Launch the application.
 	 */
@@ -92,7 +104,7 @@ public class RaspberryLanes {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JCheckBox chckbxWatchRace = new JCheckBox("WATCH RACE");
+		chckbxWatchRace = new JCheckBox("WATCH RACE");
 		chckbxWatchRace.setForeground(new Color(220, 20, 60));
 		chckbxWatchRace.setBackground(darkNavy);
 		chckbxWatchRace.setBounds(1008, 597, 166, 33);
@@ -143,16 +155,6 @@ public class RaspberryLanes {
 		canvas.setBounds(254, 73, 723, 500);
 		frame.getContentPane().add(canvas);
 		
-		JMenu mnFeatures = new JMenu("Features");
-		mnFeatures.setBackground(new Color(255, 215, 0));
-		menuBar.add(mnFeatures);
-		
-		JMenuItem mntmBetting = new JMenuItem("Betting");
-		mnFeatures.add(mntmBetting);
-		
-		
-		JMenuItem mntmStatistics = new JMenuItem("Statistics");
-		mnFeatures.add(mntmStatistics);
 		
 		JLabel label_1 = new JLabel("");
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -162,7 +164,7 @@ public class RaspberryLanes {
 		label_1.setBounds(1050, 328, 100, 56);
 		frame.getContentPane().add(label_1);
 		
-		JLabel winnerName = new JLabel("");
+		winnerName = new JLabel("");
 		winnerName.setHorizontalAlignment(SwingConstants.CENTER);
 		winnerName.setFont(new Font("Impact", Font.PLAIN, 29));
 		winnerName.setBounds(0, 127, 220, 35);
@@ -173,7 +175,7 @@ public class RaspberryLanes {
 		selectedHorse.setBounds(1050, 200, 100, 100);
 		frame.getContentPane().add(selectedHorse);
 		
-		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox = new JComboBox<String>();
 		comboBox.setForeground(darkNavy);
 		comboBox.setBackground(new Color(255, 250, 205));
 		comboBox.setBounds(1030, 121, 140, 27);
@@ -234,12 +236,12 @@ public class RaspberryLanes {
 		frame.getContentPane().add(txtCashOnBet);
 		txtCashOnBet.setColumns(10);
 		
-		ImagePanel panel = new ImagePanel("src/horses/LogoN.png");
+		panel = new ImagePanel("src/horses/LogoN.png");
 		panel.setBackground(darkNavy);
 		panel.setBounds(0, 159, 220, 203);
 		frame.getContentPane().add(panel);
 		
-		JTextArea txtrSgg = new JTextArea();
+		txtrSgg = new JTextArea();
 		txtrSgg.setFont(new Font("Impact", Font.PLAIN, 22));
 		txtrSgg.setForeground(new Color(220, 20, 60));
 		txtrSgg.setBackground(darkNavy);
@@ -247,7 +249,7 @@ public class RaspberryLanes {
 		txtrSgg.setBounds(954, 446, 246, 139);
 		frame.getContentPane().add(txtrSgg);
 		
-		JLabel lblPlayerName = new JLabel(player.toString());
+		lblPlayerName = new JLabel(player.toString());
 		lblPlayerName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPlayerName.setFont(new Font("Impact", Font.PLAIN, 28));
 		lblPlayerName.setForeground(new Color(255, 215, 0));
@@ -261,14 +263,14 @@ public class RaspberryLanes {
 		label_2.setBounds(1040, 146, 120, 16);
 		frame.getContentPane().add(label_2);
 		
-		JLabel label_3 = new JLabel("");
+		label_3 = new JLabel("");
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
 		label_3.setForeground(new Color(220, 20, 60));
 		label_3.setFont(new Font("Impact", Font.PLAIN, 18));
 		label_3.setBounds(0, 102, 220, 16);
 		frame.getContentPane().add(label_3);
 		
-		JLabel lblTime = new JLabel("TIME");
+		lblTime = new JLabel("TIME");
 		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTime.setFont(new Font("Impact", Font.PLAIN, 25));
 		lblTime.setBounds(0, 373, 220, 22);
@@ -299,35 +301,7 @@ public class RaspberryLanes {
 		btnRaceHorses.setForeground(darkNavy);
 		btnRaceHorses.addActionListener(new ActionListener() {
 			@SuppressWarnings("null")
-			public void updateStuff() throws NullPointerException, IOException{
-				txtPreviousWeek.setText(stable.printResults(1));
-				while(stable.racers.size() < 10){
-					int rand = (int)(Math.random()*(horsenames.size()-1));
-					stable.racers.add(new Horse(horsenames.get(rand).get(0)));	
-				}
-				txtrSgg.setText("");
-				player.cash += betList.reward(stable);
-				lblPlayerName.setText(player.toString());
-				comboBox.removeAllItems();
-				for(Horse racer : stable.racers){
-					comboBox.addItem(racer.name);
-				}
-				canvas.updateStable(stable);
-				label_3.setText("WINNER");
-				label_3.setForeground(stable.racers.get(0).color);
-				lblTime.setText(Tools.timeToString(stable.racers.get(0).getTime()));
-				lblTime.setForeground(stable.racers.get(0).color);
-				winnerName.setText(stable.racers.get(0).name);
-				winnerName.setForeground(stable.racers.get(0).color);
-				
-				for(int i = 0; i < panel.image.getHeight(); i++){
-					for(int j = 0; j<panel.image.getWidth(); j++){
-						if(panel.image.getRGB(i,j) == winColor.getRGB()){
-							panel.image.setRGB(i, j, stable.racers.get(0).color.getRGB());	
-						}}}
-				winColor = stable.racers.get(0).color;
-				panel.repaint();
-			}
+			
 				
 			
 			public void actionPerformed(ActionEvent e) {
@@ -338,15 +312,11 @@ public class RaspberryLanes {
 					canvas.startTimer();
 				}
 				
-				try {
-					updateStuff();
-				} catch (NullPointerException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
+				
+				
+				
+				
+				
 			}
 				
 		
@@ -368,9 +338,7 @@ public class RaspberryLanes {
 		
 		
 	}
-	public void updateStuff(){
-		updateStuff();	
-	}
+
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "Save Game");
@@ -386,5 +354,42 @@ public class RaspberryLanes {
 			}
 			
 		}
+	
+		
+	
+	}
+	public static void updateStuff() throws NullPointerException, IOException{
+		txtPreviousWeek.setText(stable.printResults(1));
+		while(stable.racers.size() < 10){
+			int rand = (int)(Math.random()*(horsenames.size()-1));
+			stable.racers.add(new Horse(horsenames.get(rand).get(0)));	
+		}
+		txtrSgg.setText("");
+		player.cash += betList.reward(stable);
+		lblPlayerName.setText(player.toString());
+		comboBox.removeAllItems();
+		for(Horse racer : stable.racers){
+			comboBox.addItem(racer.name);
+		}
+		label_3.setText("WINNER");
+		label_3.setForeground(stable.racers.get(0).color);
+		lblTime.setText(Tools.timeToString(stable.racers.get(0).getTime()));
+		lblTime.setForeground(stable.racers.get(0).color);
+		winnerName.setText(stable.racers.get(0).name);
+		winnerName.setForeground(stable.racers.get(0).color);
+		
+		for(int i = 0; i < panel.image.getHeight(); i++){
+			for(int j = 0; j<panel.image.getWidth(); j++){
+				if(panel.image.getRGB(i,j) == winColor.getRGB()){
+					panel.image.setRGB(i, j, stable.racers.get(0).color.getRGB());	
+				}}}
+		winColor = stable.racers.get(0).color;
+		panel.repaint();
+	}
+
+	public static ActionListener doI() throws StackOverflowError{
+		// TODO Auto-generated method stub
+		i++;
+		return null;
 	}
 }
