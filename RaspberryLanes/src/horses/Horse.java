@@ -220,7 +220,7 @@ public class Horse implements Comparable<Horse> {
 			time = Tools.timeToString(this.getTime());
 		}
 		
-		return name + "; TIME :: " + time;
+		return name + " " + time;
 		
 	}
 	public String toPreview(){

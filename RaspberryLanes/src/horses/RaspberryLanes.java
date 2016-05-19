@@ -32,11 +32,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import java.awt.Canvas;
+import javax.swing.JInternalFrame;
 
 public class RaspberryLanes {
 
 	private JFrame frame;
-	private JTextArea txtRaceHorses;
 	private JTextArea txtPreviousWeek;
 	Player player;
 	ArrayList<ArrayList<String>> horsenames;
@@ -47,6 +47,7 @@ public class RaspberryLanes {
 	private final Action newGame = new SwingAction();
 	Image img = null;
 	Color curColor = new Color(-3407872);
+	Color winColor = new Color(-3407872);
 
 	/**
 	 * Launch the application.
@@ -90,15 +91,6 @@ public class RaspberryLanes {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		txtRaceHorses = new JTextArea();
-		txtRaceHorses.setEditable(false);
-		txtRaceHorses.setForeground(new Color(220, 20, 60));
-		txtRaceHorses.setBackground(darkNavy);
-		txtRaceHorses.setText(stable.toPreview());
-		txtRaceHorses.setBounds(286, 606, 274, 92);
-		frame.getContentPane().add(txtRaceHorses);
-		txtRaceHorses.setColumns(10);
-		
 		JCheckBox chckbxWatchRace = new JCheckBox("WATCH RACE");
 		chckbxWatchRace.setForeground(new Color(220, 20, 60));
 		chckbxWatchRace.setBackground(darkNavy);
@@ -106,11 +98,12 @@ public class RaspberryLanes {
 		frame.getContentPane().add(chckbxWatchRace);
 		
 		txtPreviousWeek = new JTextArea();
+		txtPreviousWeek.setFont(new Font("Impact", Font.PLAIN, 20));
 		txtPreviousWeek.setEditable(false);
 		txtPreviousWeek.setForeground(new Color(220, 20, 60));
 		txtPreviousWeek.setBackground(darkNavy);
 		txtPreviousWeek.setText("Previous Week");
-		txtPreviousWeek.setBounds(0, 374, 274, 339);
+		txtPreviousWeek.setBounds(0, 423, 274, 339);
 		frame.getContentPane().add(txtPreviousWeek);
 		txtPreviousWeek.setColumns(10);
 		
@@ -168,6 +161,12 @@ public class RaspberryLanes {
 		label_1.setBounds(1050, 328, 100, 56);
 		frame.getContentPane().add(label_1);
 		
+		JLabel winnerName = new JLabel("");
+		winnerName.setHorizontalAlignment(SwingConstants.CENTER);
+		winnerName.setFont(new Font("Impact", Font.PLAIN, 29));
+		winnerName.setBounds(0, 127, 220, 35);
+		frame.getContentPane().add(winnerName);
+		
 		ImagePanel selectedHorse = stable.racers.get(0).graphic;
 		selectedHorse.setBackground(darkNavy);
 		selectedHorse.setBounds(1050, 200, 100, 100);
@@ -177,10 +176,11 @@ public class RaspberryLanes {
 		comboBox.setForeground(darkNavy);
 		comboBox.setBackground(new Color(255, 250, 205));
 		comboBox.setBounds(1030, 121, 140, 27);
-		comboBox.setMaximumRowCount(20);
+		comboBox.setMaximumRowCount(10);
 		for(Horse racer : stable.racers){
 			comboBox.addItem(racer.name);
 		}
+		
 		comboBox.addActionListener(new ActionListener() {
 			@SuppressWarnings("null")
 			public void actionPerformed(ActionEvent e) {
@@ -252,10 +252,33 @@ public class RaspberryLanes {
 		lblPlayerName.setBounds(1030, 36, 140, 56);
 		frame.getContentPane().add(lblPlayerName);
 		
+		JLabel label_2 = new JLabel("BET");
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_2.setForeground(new Color(220, 20, 60));
+		label_2.setFont(new Font("Impact", Font.PLAIN, 15));
+		label_2.setBounds(1040, 146, 120, 16);
+		frame.getContentPane().add(label_2);
+		
+		JLabel label_3 = new JLabel("");
+		label_3.setHorizontalAlignment(SwingConstants.CENTER);
+		label_3.setForeground(new Color(220, 20, 60));
+		label_3.setFont(new Font("Impact", Font.PLAIN, 18));
+		label_3.setBounds(0, 102, 220, 16);
+		frame.getContentPane().add(label_3);
+		
+		JLabel lblTime = new JLabel("TIME");
+		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTime.setFont(new Font("Impact", Font.PLAIN, 25));
+		lblTime.setBounds(0, 373, 220, 22);
+		frame.getContentPane().add(lblTime);
+		
 		JButton btnBetOnHorse = new JButton("Bet on Horse!");
 		btnBetOnHorse.addActionListener(new ActionListener() {
 			@SuppressWarnings("null")
 			public void actionPerformed(ActionEvent e) {
+				if(txtCashOnBet.getText().equals(" ")){
+					return;
+				}
 				String money = txtCashOnBet.getText();
 				int cash = Integer.parseInt(money);
 				Bet bet = new Bet(comboBox.getSelectedItem().toString(), player.placeBet(cash), stable);
@@ -275,13 +298,12 @@ public class RaspberryLanes {
 		btnRaceHorses.addActionListener(new ActionListener() {
 			@SuppressWarnings("null")
 			public void updateStuff() throws NullPointerException{
-				txtPreviousWeek.setText(stable.toString());
-				while(stable.racers.size() < 20){
+				txtPreviousWeek.setText(stable.printResults(1));
+				while(stable.racers.size() < 10){
 					int rand = (int)(Math.random()*(horsenames.size()-1));
 					stable.racers.add(new Horse(horsenames.get(rand).get(0)));	
 				}
 				
-				txtRaceHorses.setText(stable.toPreview());
 				txtrSgg.setText("");
 				player.cash += betList.reward(stable);
 				lblPlayerName.setText(player.toString());
@@ -290,7 +312,22 @@ public class RaspberryLanes {
 					comboBox.addItem(racer.name);
 				}
 				canvas.updateStable(stable);
+				label_3.setText("WINNER");
+				label_3.setForeground(stable.racers.get(0).color);
+				lblTime.setText(Tools.timeToString(stable.racers.get(0).getTime()));
+				lblTime.setForeground(stable.racers.get(0).color);
+				winnerName.setText(stable.racers.get(0).name);
+				winnerName.setForeground(stable.racers.get(0).color);
+				
+				for(int i = 0; i < panel.image.getHeight(); i++){
+					for(int j = 0; j<panel.image.getWidth(); j++){
+						if(panel.image.getRGB(i,j) == winColor.getRGB()){
+							panel.image.setRGB(i, j, stable.racers.get(0).color.getRGB());	
+						}}}
+				winColor = stable.racers.get(0).color;
+				panel.repaint();
 			}
+				
 			
 			public void actionPerformed(ActionEvent e) {
 				stable.doRace();
@@ -310,19 +347,9 @@ public class RaspberryLanes {
 		btnRaceHorses.setBounds(1008, 631, 166, 68);
 		frame.getContentPane().add(btnRaceHorses);
 		
-		JLabel label_2 = new JLabel("BET");
-		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		label_2.setForeground(new Color(220, 20, 60));
-		label_2.setFont(new Font("Impact", Font.PLAIN, 15));
-		label_2.setBounds(1040, 146, 120, 16);
-		frame.getContentPane().add(label_2);
 		
-		JLabel label_3 = new JLabel("WINNER");
-		label_3.setHorizontalAlignment(SwingConstants.CENTER);
-		label_3.setForeground(new Color(220, 20, 60));
-		label_3.setFont(new Font("Impact", Font.PLAIN, 18));
-		label_3.setBounds(0, 102, 220, 16);
-		frame.getContentPane().add(label_3);
+		
+		
 		
 		
 		

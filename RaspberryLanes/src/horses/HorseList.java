@@ -84,18 +84,18 @@ public class HorseList {
 		return retu;
 		
 	}
-	public String toString(){
+	public String printResults(int mark){
 		String timeString = "";
-		int place = 0;
-		for(int i = 0; i< racers.size();){
+		int place = mark;
+		for(int i = mark; i< racers.size();){
 			place++;
-			if(racers.get(i).age > racers.get(i).maxAge || racers.get(i).getTime() == 999 || racers.get(i).getTime() > 135){
+			if(racers.get(i).age > racers.get(i).maxAge || racers.get(i).getTime() == 999 || racers.get(i).getTime() > 130){
 			
-				timeString += "" + place + racers.get(i) + "---Retiring"+ "\n";	
+				timeString += "" + Tools.numToPlace(place) + " "+ racers.get(i) + "---Retiring"+ "\n";	
 				racers.remove(i);
 			}
 			else{
-				timeString+= "" + place +  racers.get(i) + "\n";
+				timeString+= "" + Tools.numToPlace(place) + " " +  racers.get(i) + "\n";
 				racers.get(i).place.add(place);
 				i++;
 			}

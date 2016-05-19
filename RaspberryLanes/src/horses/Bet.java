@@ -47,6 +47,6 @@ public class Bet {
 	return null;
 	}
 	public String toString(){
-		return "$" + value + " on " + horseName + " :: " + odds + " odds.\n";
+		return "$" + value + " " + horseName + " " + odds + "\n";
 	}
 }

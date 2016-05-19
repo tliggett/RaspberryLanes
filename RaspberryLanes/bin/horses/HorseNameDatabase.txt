@@ -4,16 +4,17 @@ Aesop
 Afrika 
 Aggie
 Ajax
-Alpha
+Alpha Omega
 Alfie
 Ali
 Aladdin
 Alibaba
 Ally
-America 
-Amber
+America
+Captain America 
+Amber 
 Amos
-Amigo
+Hola Amigo
 Andy
 Annabelle
 Annapolis  
@@ -27,7 +28,7 @@ April
 Arabella
 Ariel
 Aries
-Arnold
+Arnold Schwarzenegger
 Arod
 Arrow
 Arso
@@ -51,6 +52,7 @@ Bandy
 Banjo
 Banter
 Barbie
+Bartholomew
 Baxter
 Bear
 Beauty 
@@ -107,10 +109,11 @@ Candy
 Cannon
 Cappicino
 Captain
-Carson
+Carson City
 Casanova
-Casey
+Agent Casey
 Cash
+Johnny Cash
 Casino
 Casper
 Cecil
@@ -554,6 +557,7 @@ Serenade
 Serendipity
 Sgt. Pepper
 Shadow
+Shamrock
 Shayla
 Shawnee
 Shieka
@@ -695,3 +699,4 @@ Bonzai
 Maythehorsebewithu
 Passing Wind
 Whykickamoocow
+Han Shot First
