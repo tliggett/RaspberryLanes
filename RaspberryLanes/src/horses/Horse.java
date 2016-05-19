@@ -1,8 +1,13 @@
 package horses;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.imageio.ImageIO;
 
 public class Horse implements Comparable<Horse> {
 	int age;
@@ -19,8 +24,9 @@ public class Horse implements Comparable<Horse> {
 	double score;
 	Color color;
 	ImagePanel graphic;
+	Image image;
 	
-	public Horse(String name){
+	public Horse(String name) throws IOException{
 		this.name = name;
 		age = 0;
 		maxAge = (int)(Math.random()*8 + 3);
@@ -33,11 +39,12 @@ public class Horse implements Comparable<Horse> {
 		place = new ArrayList<Integer>();
 		color = randomColor();
 		graphic = new ImagePanel("src/horses/inGame.png");
+		image = ImageIO.read(new File("src/horses/LogoN.png"));
 		colorGraphic();
 		
 	
 	}
-	public Horse(ArrayList<String> fromFile){
+	public Horse(ArrayList<String> fromFile) throws IOException{
 		name = fromFile.get(0);
 		age = Integer.parseInt(fromFile.get(1));
 		maxAge = Integer.parseInt(fromFile.get(2));
@@ -50,6 +57,7 @@ public class Horse implements Comparable<Horse> {
 		place = new ArrayList<Integer>();
 		color = new Color(Integer.parseInt(fromFile.get(8)),Integer.parseInt(fromFile.get(9)),Integer.parseInt(fromFile.get(10)) );
 		graphic = new ImagePanel("src/horses/LogoN.png");
+		image = ImageIO.read(new File("src/horses/LogoN.png"));
 		colorGraphic();
 		
 	}

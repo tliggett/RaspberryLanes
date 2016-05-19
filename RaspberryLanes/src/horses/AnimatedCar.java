@@ -68,7 +68,9 @@ class AnimatedCar extends Canvas
 			window.fillRect(0, 100, 1300, 700);
 			window.setColor(Color.white);
 			window.fillRect(1100, 100, 50, 700);	
-			
+			for(int i = 0; i <stable.racers.size(); i++){
+				
+			}
 			 
 		 }
 
@@ -79,7 +81,7 @@ class AnimatedCar extends Canvas
 		
 		 
 		    try {
-				 img = ImageIO.read(new File("Graphics/dvdlogo.png"));
+				 img = ImageIO.read(new File("src/horses/LogoN.png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

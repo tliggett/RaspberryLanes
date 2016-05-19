@@ -1,6 +1,7 @@
 package horses;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class HorseList {
 	ArrayList<Horse> racers;
 	
 	
-	public HorseList() throws NumberFormatException, FileNotFoundException{
+	public HorseList() throws NumberFormatException, IOException{
 		ArrayList<ArrayList<String>> horses =  ReadFile.readfile("src/horses/RaceHorses.txt");
 		racers = new ArrayList<Horse>();
 		for(int i = 0; i < horses.size(); i ++){

@@ -67,10 +67,10 @@ public class RaspberryLanes {
 
 	/**
 	 * Create the application.
-	 * @throws FileNotFoundException 
 	 * @throws NumberFormatException 
+	 * @throws IOException 
 	 */
-	public RaspberryLanes() throws NumberFormatException, FileNotFoundException {
+	public RaspberryLanes() throws NumberFormatException, IOException {
 		
 		horsenames = ReadFile.readfile("src/horses/HorseNameDatabase.txt");
 		stable = new HorseList();
@@ -297,7 +297,7 @@ public class RaspberryLanes {
 		btnRaceHorses.setForeground(darkNavy);
 		btnRaceHorses.addActionListener(new ActionListener() {
 			@SuppressWarnings("null")
-			public void updateStuff() throws NullPointerException{
+			public void updateStuff() throws NullPointerException, IOException{
 				txtPreviousWeek.setText(stable.printResults(1));
 				while(stable.racers.size() < 10){
 					int rand = (int)(Math.random()*(horsenames.size()-1));
@@ -336,7 +336,15 @@ public class RaspberryLanes {
 					canvas.startTimer();
 				}
 				
-				updateStuff();	
+				try {
+					updateStuff();
+				} catch (NullPointerException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
 			}
 				
 		
