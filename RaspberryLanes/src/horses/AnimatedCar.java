@@ -33,6 +33,7 @@ class AnimatedCar extends Canvas
 		setSize(664, 500);
 		setVisible(true);
 		setBackground(Color.blue);
+		setImage();
 		stable = racers;
 		ActionListener paintCaller = new ActionListener(){
 			public void actionPerformed(ActionEvent event)
@@ -64,15 +65,14 @@ class AnimatedCar extends Canvas
 		
 		 {
 			window.clearRect(0,0,getWidth(),getHeight());	
-			window.setColor(Color.green);
-			window.fillRect(0, 100, 1300, 700);
+			window.drawImage(img, 0, 0, 723, 500, null);
 			window.setColor(Color.white);
 			window.fillRect(1100, 100, 50, 700);	
 			for(int i = 0; i <stable.racers.size(); i++){
-				
-			}
-			 
-		 }
+				window.drawImage(stable.racers.get(i).graphic.image, 0, (i*30) + 140, 30, 30, null);
+				}
+			
+			  }
 
 		
 		
@@ -81,7 +81,7 @@ class AnimatedCar extends Canvas
 		
 		 
 		    try {
-				 img = ImageIO.read(new File("src/horses/LogoN.png"));
+				 img = ImageIO.read(new File("src/horses/Track.png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

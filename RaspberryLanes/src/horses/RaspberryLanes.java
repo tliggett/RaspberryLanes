@@ -85,6 +85,7 @@ public class RaspberryLanes {
 	private void initialize() {
 		frame = new JFrame();
 		Color darkNavy = new Color(0, 0, 120);
+		Color track = new Color(255,208,115);
 		frame.getContentPane().setBackground(darkNavy);
 		frame.getContentPane().setForeground(new Color(255, 20, 147));
 		frame.setBounds(0, 0, 1200, 800);
@@ -103,7 +104,7 @@ public class RaspberryLanes {
 		txtPreviousWeek.setForeground(new Color(220, 20, 60));
 		txtPreviousWeek.setBackground(darkNavy);
 		txtPreviousWeek.setText("Previous Week");
-		txtPreviousWeek.setBounds(0, 423, 274, 339);
+		txtPreviousWeek.setBounds(0, 423, 248, 339);
 		frame.getContentPane().add(txtPreviousWeek);
 		txtPreviousWeek.setColumns(10);
 		
@@ -139,7 +140,7 @@ public class RaspberryLanes {
 		mnFile.add(mntmSaveGame);
 		
 		AnimatedCar canvas = new AnimatedCar(stable);
-		canvas.setBounds(287, 73, 664, 500);
+		canvas.setBounds(254, 73, 723, 500);
 		frame.getContentPane().add(canvas);
 		
 		JMenu mnFeatures = new JMenu("Features");
@@ -193,9 +194,9 @@ public class RaspberryLanes {
 							selectedHorse.image.setRGB(i, j, stable.racers.get(comboBox.getSelectedIndex()).color.getRGB());	
 						}
 						
-						if(selectedHorse.image.getRGB(i,j) == Color.green.getRGB()){
+						if(selectedHorse.image.getRGB(i,j) == -12173){
 							selectedHorse.image.setRGB(i,j, darkNavy.getRGB());	
-						}
+						
 						
 					}
 				}
@@ -205,7 +206,7 @@ public class RaspberryLanes {
 				
 				
 			}
-			}});
+			}}});
 		frame.getContentPane().add(comboBox);
 		
 		JLabel lblHorse = new JLabel("HORSE");

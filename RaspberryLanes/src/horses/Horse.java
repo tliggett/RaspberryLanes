@@ -61,23 +61,47 @@ public class Horse implements Comparable<Horse> {
 		colorGraphic();
 		
 	}
+	/*public void colorImage(){
+		Color darkNavy = new Color(0, 0, 120);
+		Color track = new Color(255,208,115);
+		for(int i = 0; i < image.getHeight(null); i++){
+			
+			for(int j = 0; j<image.getWidth(null); j++){
+				if(image.get == -3407872){
+					image.setRGB(i, j, color.getRGB());	
+				}
+				
+				if(image.getRGB(i,j) == darkNavy.getRGB()){
+					image.setRGB(i,j, track.getRGB());	
+				}
+				
+			}
+		}
+		
+		
+	}*/
+	
 	public void colorGraphic(){
 		Color darkNavy = new Color(0, 0, 120);
+		Color track = new Color(255,208,115);
 		for(int i = 0; i < graphic.image.getHeight(); i++){
-			
+			System.out.println("" + graphic.image.getRGB(0,0));
 			for(int j = 0; j<graphic.image.getWidth(); j++){
 				if(graphic.image.getRGB(i,j) == -3407872){
 					graphic.image.setRGB(i, j, color.getRGB());	
 				}
 				
-				if(graphic.image.getRGB(i,j) == darkNavy.getRGB()){
-					graphic.image.setRGB(i,j, color.green.getRGB());	
+				if(graphic.image.getRGB(i,j) == -16777095){
+					graphic.image.setRGB(i,j, track.getRGB());	
 				}
 				
 			}
 		}
 		graphic.repaint();
 		
+	}
+	public double getPPS(){
+		return 700/time.get(time.size()-1);
 	}
 	
 	public double calcScore(){
