@@ -44,9 +44,9 @@ class AnimatedCar extends Canvas
 				}
 				i++;
 				if(i>150){
+					i = 0;
 					timer.restart();
 					timer.stop();
-					
 					for(int i = 0; i <stable.racers.size(); i++){
 						stable.racers.get(i).x = 0;
 					}
@@ -56,6 +56,8 @@ class AnimatedCar extends Canvas
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
+					
 				}
 				repaint();  //each time timer fires it will call paint	
 				
@@ -97,13 +99,14 @@ class AnimatedCar extends Canvas
 		 {
 			window.clearRect(0,0,getWidth(),getHeight());	
 			window.drawImage(img, 0, 0, 723, 500, null);
-			window.setColor(Color.white);
+			
 			
 			for(int i = 0; i <stable.racers.size(); i++){
 				window.drawImage(stable.racers.get(i).graphic.image, (int)stable.racers.get(i).x, (i*30) + 140, 30, 30, null);
 				
 			}
-			window.fillRect(690, 136, 5, 330);
+			//window.setColor(Color.white);
+			//window.fillRect(690, 136, 5, 330);
 			
 			  }
 

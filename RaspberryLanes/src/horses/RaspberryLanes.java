@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -53,6 +54,7 @@ public class RaspberryLanes {
 	private Timer timer;
 	static int i;
 	
+	static AnimatedCar canvas;
 	static JCheckBox chckbxWatchRace;
 	static JComboBox<String> comboBox;
 	static JTextArea txtrSgg;
@@ -151,7 +153,7 @@ public class RaspberryLanes {
 		mntmSaveGame.setAction(saveGame);
 		mnFile.add(mntmSaveGame);
 		
-		AnimatedCar canvas = new AnimatedCar(stable);
+		canvas = new AnimatedCar(stable);
 		canvas.setBounds(254, 73, 723, 500);
 		frame.getContentPane().add(canvas);
 		
@@ -359,6 +361,8 @@ public class RaspberryLanes {
 	
 	}
 	public static void updateStuff() throws NullPointerException, IOException{
+		Collections.sort(stable.racers);
+		canvas.updateStable(stable);
 		txtPreviousWeek.setText(stable.printResults(1));
 		while(stable.racers.size() < 10){
 			int rand = (int)(Math.random()*(horsenames.size()-1));
@@ -387,9 +391,5 @@ public class RaspberryLanes {
 		panel.repaint();
 	}
 
-	public static ActionListener doI() throws StackOverflowError{
-		// TODO Auto-generated method stub
-		i++;
-		return null;
-	}
+	
 }

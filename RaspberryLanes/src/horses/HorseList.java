@@ -50,7 +50,7 @@ public class HorseList {
 			horse.doRace();
 		}
 
-		Collections.sort(racers);
+		
 		
 		
 		
