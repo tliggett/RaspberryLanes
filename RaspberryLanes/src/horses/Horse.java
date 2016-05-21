@@ -86,8 +86,27 @@ public class Horse implements Comparable<Horse> {
 	}
 	public double getPPS(){
 		if(time.size() > 0){
-		return 700/ time.get(time.size()-1);
-		}else{
+			if(x<67){
+				return 67/furlongs[0];
+			}if(x<134){
+				return 67/furlongs[1];
+			}if(x<201){
+				return 67/furlongs[2];
+			}if(x<268){
+				return 67/furlongs[3];
+			}if(x<335){
+				return 67/furlongs[4];
+			}if(x<402){
+				return 67/furlongs[5];
+			}if(x<469){
+				return 67/furlongs[6];
+			}if(x<536){
+				return 67/furlongs[7];
+			}if(x<603){
+				return 67/furlongs[8];
+			}
+				return 67/furlongs[9];
+			}else{
 			return 0;
 		}
 	}
@@ -155,8 +174,10 @@ public class Horse implements Comparable<Horse> {
 			return;
 		}
 		
+		double rnd = ((Math.random()*6));
+		
 		for(int i = 0; i<furlongs.length; i++){
-			furlongs[i] = 21 - (speed/10);
+			furlongs[i] = 21 - (speed/10) + rnd/10;
 		}
 		
 		furlongs[0] += (10-(acc/10))*2;
@@ -176,7 +197,7 @@ public class Horse implements Comparable<Horse> {
 		for(double furlong : furlongs){
 			time += furlong;
 		}
-		time+= ((int)(Math.random()*6));
+		
 		time+=4;
 		int ageDiff = maxAge-age;
 		if(ageDiff!= 0){

@@ -150,7 +150,7 @@ public class RaspberryLanes {
 		mnFile.add(mntmSaveGame);
 
 		canvas = new PaintRace(stable);
-		canvas.setBounds(254, 73, 723, 500);
+		canvas.setBounds(254, 73, 720, 500);
 		frame.getContentPane().add(canvas);
 
 		JLabel label_1 = new JLabel("");
@@ -275,7 +275,7 @@ public class RaspberryLanes {
 		lblPlayerName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPlayerName.setFont(new Font("Impact", Font.PLAIN, 28));
 		lblPlayerName.setForeground(new Color(255, 215, 0));
-		lblPlayerName.setBounds(1030, 36, 140, 56);
+		lblPlayerName.setBounds(868, 17, 316, 56);
 		frame.getContentPane().add(lblPlayerName);
 
 		JLabel label_2 = new JLabel("BET");
