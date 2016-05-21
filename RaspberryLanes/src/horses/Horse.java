@@ -40,7 +40,7 @@ public class Horse implements Comparable<Horse> {
 		place = new ArrayList<Integer>();
 		color = randomColor();
 		graphic = new ImagePanel("src/horses/inGame.png");
-		image = ImageIO.read(new File("src/horses/LogoN.png"));
+		
 		double x = 0;
 		colorGraphic();
 		
@@ -59,7 +59,10 @@ public class Horse implements Comparable<Horse> {
 		place = new ArrayList<Integer>();
 		color = new Color(Integer.parseInt(fromFile.get(8)),Integer.parseInt(fromFile.get(9)),Integer.parseInt(fromFile.get(10)) );
 		graphic = new ImagePanel("src/horses/LogoN.png");
-		image = ImageIO.read(new File("src/horses/LogoN.png"));
+		for(int i = 11; i<fromFile.size(); i++){
+			time.add(Double.parseDouble(fromFile.get(i)));
+		}
+		
 		double x = 0;
 		colorGraphic();	
 	}
@@ -72,7 +75,7 @@ public class Horse implements Comparable<Horse> {
 					graphic.image.setRGB(i, j, color.getRGB());	
 				}
 				
-				if(graphic.image.getRGB(i,j) == -16777095){
+				if(graphic.image.getRGB(i,j) == -16777095 || graphic.image.getRGB(i,j) == Color.white.getRGB()){
 					graphic.image.setRGB(i,j, track.getRGB());	
 				}
 				
@@ -221,6 +224,9 @@ public class Horse implements Comparable<Horse> {
 			+ color.getRed() + ","
 			+color.getGreen() + ","
 			+ color.getBlue() + ",";
+		for(Double tim : time){
+			forRet += tim + ",";
+		}
 			
 		return forRet;
 	}
@@ -237,7 +243,11 @@ public class Horse implements Comparable<Horse> {
 		
 	}
 	public String toPreview(){
-		return name + "; Age :: " + age + ";";
+		String forRet = "PREVIOUS TIMES\n";
+		for(Double tim : time){
+			forRet += Tools.timeToString(tim) + "\n";
+		}
+		return forRet;
 	}
 	
 }

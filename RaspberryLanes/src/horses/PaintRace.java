@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import java.awt.Canvas;
 
-class AnimatedCar extends Canvas
+class PaintRace extends Canvas
 {
 	private int x;
 	private int y;
@@ -29,7 +29,7 @@ class AnimatedCar extends Canvas
 	private final static int SLEEP = 100;  //bigger # = slower animation	
 	BufferedImage img = null;
 	private HorseList stable;
-	public AnimatedCar(HorseList racers)
+	public PaintRace(HorseList racers)
 	{
 		setSize(664, 500);
 		setVisible(true);
