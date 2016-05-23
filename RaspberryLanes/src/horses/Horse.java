@@ -93,7 +93,9 @@ public class Horse implements Comparable<Horse> {
 					graphic.image.setRGB(i, j, saddleColor.getRGB());	
 				}
 				if(graphic.image.getRGB(i,j) == -16777095){// || graphic.image.getRGB(i,j) == Color.white.getRGB()){
-					graphic.image.setRGB(i,j, track.getRGB());	
+					int rgb = graphic.image.getRGB(i, j);
+			        rgb = rgb & 0x00FFFFFF;
+					graphic.image.setRGB(i,j, rgb);	
 				}
 				
 			}

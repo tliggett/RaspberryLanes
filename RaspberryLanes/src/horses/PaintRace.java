@@ -26,12 +26,12 @@ class PaintRace extends Canvas
 	private int y;
 	int i;
 	private Timer timer;
-	private final static int SLEEP = 150;  //bigger # = slower animation	
+	private final static int SLEEP = 50;  //bigger # = slower animation	
 	BufferedImage img = null;
 	private HorseList stable;
 	public PaintRace(HorseList racers)
 	{
-		setSize(720, 500);
+		setSize(720, 450);
 		setVisible(true);
 		setBackground(Color.blue);
 		setImage();
@@ -99,14 +99,13 @@ class PaintRace extends Canvas
 		 {
 			window.clearRect(0,0,getWidth(),getHeight());	
 			
-			window.drawImage(img, 0, 0, 723, 500, null);
+			window.drawImage(img, 0, 0, 723, 450, null);
 			/*for(int i = 0; i<img.getWidth(); i+=67){
 				window.drawRect(i, 0, 1, 500);
 			}*/
-			window.setColor(Color.white);
-			window.fillRect(700,136,5,314);
+			
 			for(int i = 0; i <stable.racers.size(); i++){
-				window.drawImage(stable.racers.get(i).graphic.image, (int)stable.racers.get(i).x, (i*30) + 140, 30, 30, null);
+				window.drawImage(stable.racers.get(i).graphic.image, (int)stable.racers.get(i).x, (i*27) + 125, 25, 25, null);
 				
 			}
 		

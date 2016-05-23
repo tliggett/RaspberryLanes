@@ -150,7 +150,7 @@ public class RaspberryLanes {
 		mnFile.add(mntmSaveGame);
 
 		canvas = new PaintRace(stable);
-		canvas.setBounds(254, 73, 720, 500);
+		canvas.setBounds(254, 123, 720, 450);
 		frame.getContentPane().add(canvas);
 
 		JLabel label_1 = new JLabel("");
@@ -203,48 +203,7 @@ public class RaspberryLanes {
 				if (comboBox.getItemCount() > 0) {
 					String horseName = comboBox.getSelectedItem().toString();
 					selectedHorse.image = stable.racers.get(comboBox.getSelectedIndex()).graphic.image;
-
-					
-
-					/*
-					 * for (int i = 0; i < selectedHorse.image.getHeight(); i++)
-					 * {
-					 * 
-					 * for (int j = 0; j < selectedHorse.image.getWidth(); j++)
-					 * { if (selectedHorse.image.getRGB(i, j) ==
-					 * curColor[0].getRGB()|| selectedHorse.image.getRGB(i,j) ==
-					 * -12733006 || selectedHorse.image.getRGB(i,j) == -14059105
-					 * || selectedHorse.image.getRGB(i,j) == -12799311) {
-					 * selectedHorse.image.setRGB(i, j,
-					 * stable.racers.get(comboBox.getSelectedIndex()).furColor.
-					 * getRGB()); } if(selectedHorse.image.getRGB(i,j) ==
-					 * curColor[1].getRGB()|| selectedHorse.image.getRGB(i,j) ==
-					 * -10813373 || selectedHorse.image.getRGB(i,j) == -16777091
-					 * || selectedHorse.image.getRGB(i,j) == -3276800 ||
-					 * selectedHorse.image.getRGB(i,j) == -3407872){
-					 * selectedHorse.image.setRGB(i, j,
-					 * stable.racers.get(comboBox.getSelectedIndex()).maneColor.
-					 * getRGB()); } if(selectedHorse.image.getRGB(i,j) ==
-					 * curColor[2].getRGB() || selectedHorse.image.getRGB(i,j)
-					 * == -12799311 ){ selectedHorse.image.setRGB(i, j,
-					 * stable.racers.get(comboBox.getSelectedIndex()).
-					 * saddleColor.getRGB()); }
-					 * 
-					 * if (selectedHorse.image.getRGB(i, j) == -12173) {
-					 * selectedHorse.image.setRGB(i, j, darkNavy.getRGB());
-					 * 
-					 * } } }
-					 */
 					selectedHorse.repaint();
-					/*
-					 * curColor[0] =
-					 * stable.racers.get(comboBox.getSelectedIndex()).furColor;
-					 * curColor[1] =
-					 * stable.racers.get(comboBox.getSelectedIndex()).maneColor;
-					 * curColor[2] =
-					 * stable.racers.get(comboBox.getSelectedIndex()).
-					 * saddleColor;
-					 */
 					label_1.setText("" + stable.getHorseOdds(horseName));
 					labelAge.setText("AGE " + stable.racers.get(comboBox.getSelectedIndex()).age);
 					textArea.setText(stable.racers.get(comboBox.getSelectedIndex()).toPreview());
@@ -396,25 +355,7 @@ public class RaspberryLanes {
 		winnerName.setText(stable.racers.get(0).name);
 		winnerName.setForeground(stable.racers.get(0).furColor);
 
-		for (int i = 0; i < panel.image.getHeight(); i++) {
-			for (int j = 0; j < panel.image.getWidth(); j++) {
-				if (panel.image.getRGB(i, j) == winColor[0].getRGB() || panel.image.getRGB(i, j) == -12733006
-						|| panel.image.getRGB(i, j) == -14059105 || panel.image.getRGB(i, j) == -12799311) {
-					panel.image.setRGB(i, j, stable.racers.get(0).furColor.getRGB());
-				}
-				if (panel.image.getRGB(i, j) == winColor[1].getRGB() || panel.image.getRGB(i, j) == -10813373
-						|| panel.image.getRGB(i, j) == -16777091 || panel.image.getRGB(i, j) == -3276800
-						|| panel.image.getRGB(i, j) == -3407872) {
-					panel.image.setRGB(i, j, stable.racers.get(0).maneColor.getRGB());
-				}
-				if (panel.image.getRGB(i, j) == winColor[2].getRGB() || panel.image.getRGB(i, j) == -12799311) {
-					panel.image.setRGB(i, j, stable.racers.get(0).saddleColor.getRGB());
-				}
-			}
-		}
-		winColor[0] = stable.racers.get(0).furColor;
-		winColor[1] = stable.racers.get(0).maneColor;
-		winColor[2] = stable.racers.get(0).saddleColor;
+		panel.image = stable.racers.get(0).graphic.image;
 		panel.repaint();
 	}
 }
