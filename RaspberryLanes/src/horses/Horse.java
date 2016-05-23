@@ -22,7 +22,9 @@ public class Horse implements Comparable<Horse> {
 	double[]furlongs = new double[10];
 	String name;
 	double score;
-	Color color;
+	Color furColor;
+	Color maneColor;
+	Color saddleColor;
 	ImagePanel graphic;
 	Image image;
 	double x;
@@ -38,8 +40,16 @@ public class Horse implements Comparable<Horse> {
 		canCompete = true;
 		time = new ArrayList<Double>(); 
 		place = new ArrayList<Integer>();
-		color = randomColor();
-		graphic = new ImagePanel("src/horses/inGame.png");
+		furColor = randomColor();
+		maneColor = randomColor();
+		while(furColor.getRGB() == maneColor.getRGB()){
+			maneColor = randomColor();
+		}
+		saddleColor = randomColor();
+		while(saddleColor.getRGB() == maneColor.getRGB()){
+			saddleColor = randomColor();
+		}
+		graphic = new ImagePanel("src/horses/LogoN.png");
 		
 		double x = 0;
 		colorGraphic();
@@ -57,7 +67,9 @@ public class Horse implements Comparable<Horse> {
 		heart = Double.parseDouble(fromFile.get(7));
 		time = new ArrayList<Double>(); 
 		place = new ArrayList<Integer>();
-		color = new Color(Integer.parseInt(fromFile.get(8)),Integer.parseInt(fromFile.get(9)),Integer.parseInt(fromFile.get(10)) );
+		furColor = new Color(Integer.parseInt(fromFile.get(8)));
+		maneColor = new Color(Integer.parseInt(fromFile.get(9)));
+		saddleColor = new Color(Integer.parseInt(fromFile.get(10)));
 		graphic = new ImagePanel("src/horses/LogoN.png");
 		for(int i = 11; i<fromFile.size(); i++){
 			time.add(Double.parseDouble(fromFile.get(i)));
@@ -72,10 +84,15 @@ public class Horse implements Comparable<Horse> {
 		for(int i = 0; i < graphic.image.getHeight(); i++){
 			for(int j = 0; j<graphic.image.getWidth(); j++){
 				if(graphic.image.getRGB(i,j) == -3407872){
-					graphic.image.setRGB(i, j, color.getRGB());	
+					graphic.image.setRGB(i, j, furColor.getRGB());	
 				}
-				
-				if(graphic.image.getRGB(i,j) == -16777095 || graphic.image.getRGB(i,j) == Color.white.getRGB()){
+				if(graphic.image.getRGB(i,j) == -403660){
+					graphic.image.setRGB(i, j, maneColor.getRGB());	
+				}
+				if(graphic.image.getRGB(i,j) == -12865360){
+					graphic.image.setRGB(i, j, saddleColor.getRGB());	
+				}
+				if(graphic.image.getRGB(i,j) == -16777095){// || graphic.image.getRGB(i,j) == Color.white.getRGB()){
 					graphic.image.setRGB(i,j, track.getRGB());	
 				}
 				
@@ -242,9 +259,9 @@ public class Horse implements Comparable<Horse> {
 			+ acc + ","
 			+ stamina + ","
 			+ heart + ","
-			+ color.getRed() + ","
-			+color.getGreen() + ","
-			+ color.getBlue() + ",";
+			+ furColor.getRGB() + ","
+			+ maneColor.getRGB() + ","
+			+ saddleColor.getRGB() + ",";
 		for(Double tim : time){
 			forRet += tim + ",";
 		}
