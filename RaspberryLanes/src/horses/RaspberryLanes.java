@@ -17,7 +17,6 @@ import java.awt.Image;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -28,13 +27,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 import javax.swing.JMenu;
-import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import java.awt.Canvas;
 import javax.swing.JInternalFrame;
 
 public class RaspberryLanes {
@@ -49,12 +46,9 @@ public class RaspberryLanes {
 	private final Action saveGame = new SwingAction();
 	private final Action newGame = new SwingAction();
 	Image img = null;
-	Color[] curColor = { new Color(-3407872), new Color(-403660), new Color(-12865360) };
-	static Color[] winColor = { new Color(-3407872), new Color(-403660), new Color(-12865360) };
-	private Timer timer;
 	static int i;
 
-	static PaintRace canvas;
+	static PaintRace stadium;
 	static JCheckBox chckbxWatchRace;
 	static JComboBox<String> comboBox;
 	static JTextArea txtrSgg;
@@ -99,15 +93,18 @@ public class RaspberryLanes {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		//Establishes original frame and sets special colors.
 		frame = new JFrame();
 		Color darkNavy = new Color(0, 0, 120);
 		Color track = new Color(255, 208, 115);
 		frame.getContentPane().setBackground(darkNavy);
 		frame.getContentPane().setForeground(new Color(255, 20, 147));
-		frame.setBounds(0, 0, 1200, 800);
+		frame.setBounds(0, 0, 1440, 860);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
+		//Creates the text box with the results from the previous week.
 		txtPreviousWeek = new JTextArea();
 		txtPreviousWeek.setFont(new Font("Impact", Font.PLAIN, 20));
 		txtPreviousWeek.setEditable(false);
@@ -116,15 +113,17 @@ public class RaspberryLanes {
 		txtPreviousWeek.setBounds(0, 423, 248, 339);
 		frame.getContentPane().add(txtPreviousWeek);
 		txtPreviousWeek.setColumns(10);
-
+		
+		// Displays previous times of the horse that is selected in the comboBox
 		JTextArea textArea = new JTextArea();
 		textArea.setText("");
-		textArea.setForeground(new Color(220, 20, 60));
+		textArea.setForeground(new Color(255, 215, 0));
 		textArea.setFont(new Font("Impact", Font.PLAIN, 18));
-		textArea.setBackground(new Color(0, 0, 120));
+		textArea.setBackground(darkNavy);
 		textArea.setBounds(1008, 450, 166, 211);
 		frame.getContentPane().add(textArea);
 
+		
 		JLabel lblRaspberryLanes = new JLabel("RASPBERRY LANES");
 		lblRaspberryLanes.setForeground(new Color(220, 20, 60));
 		lblRaspberryLanes.setFont(new Font("Impact", Font.PLAIN, 31));
@@ -132,27 +131,34 @@ public class RaspberryLanes {
 		lblRaspberryLanes.setBounds(34, 21, 237, 46);
 		frame.getContentPane().add(lblRaspberryLanes);
 
+		
+		//The menu has been created for a save game and new game function.
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(255, 215, 0));
 		menuBar.setBounds(0, 0, 1200, 22);
 		frame.getContentPane().add(menuBar);
-
+		
+		//File menu
 		JMenu mnFile = new JMenu("FILE");
 		mnFile.setBackground(new Color(255, 215, 0));
 		menuBar.add(mnFile);
 
+		//New Game feature currently a WIP
 		JMenuItem mntmNewGame = new JMenuItem("New Game");
 		mntmNewGame.setBackground(new Color(255, 255, 255));
 		mnFile.add(mntmNewGame);
 
+		//Saves data of player and horses
 		JMenuItem mntmSaveGame = new JMenuItem("Save Game");
 		mntmSaveGame.setAction(saveGame);
 		mnFile.add(mntmSaveGame);
 
-		canvas = new PaintRace(stable);
-		canvas.setBounds(254, 123, 720, 450);
-		frame.getContentPane().add(canvas);
+		//Animation of the actual race
+		stadium = new PaintRace(stable);
+		stadium.setBounds(254, 123, 720, 450);
+		frame.getContentPane().add(stadium);
 
+		
 		JLabel label_1 = new JLabel("");
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setForeground(new Color(255, 215, 0));
@@ -174,16 +180,13 @@ public class RaspberryLanes {
 		labelAge.setAlignmentX(0.5f);
 		labelAge.setBounds(1050, 228, 100, 16);
 		frame.getContentPane().add(labelAge);
-
+		
 		ImagePanel selectedHorse = new ImagePanel("src/horses/LogoN.png");
 		selectedHorse.setBackground(darkNavy);
 		selectedHorse.setBounds(1050, 253, 100, 100);
 		frame.getContentPane().add(selectedHorse);
 		selectedHorse.image = stable.racers.get(0).graphic.image;
 		selectedHorse.repaint();
-		curColor[0] = stable.racers.get(0).furColor;
-		curColor[1] = stable.racers.get(0).maneColor;
-		curColor[2] = stable.racers.get(0).saddleColor;
 		label_1.setText("" + stable.getHorseOdds(stable.racers.get(0).name));
 		labelAge.setText("AGE " + stable.racers.get(0).age);
 		textArea.setText(stable.racers.get(0).toPreview());
@@ -282,8 +285,8 @@ public class RaspberryLanes {
 
 			public void actionPerformed(ActionEvent e) {
 				stable.doRace();
-				canvas.updateStable(stable);
-				canvas.startTimer();
+				stadium.updateStable(stable);
+				stadium.startTimer();
 
 			}
 
@@ -317,7 +320,7 @@ public class RaspberryLanes {
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "Save Game");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Saves game including horses and player");
 		}
 
 		public void actionPerformed(ActionEvent e) {
@@ -335,7 +338,7 @@ public class RaspberryLanes {
 
 	public static void updateStuff() throws NullPointerException, IOException {
 		Collections.sort(stable.racers);
-		canvas.updateStable(stable);
+		stadium.updateStable(stable);
 		txtPreviousWeek.setText(stable.printResults(1));
 		while (stable.racers.size() < 10) {
 			int rand = (int) (Math.random() * (horsenames.size() - 1));
