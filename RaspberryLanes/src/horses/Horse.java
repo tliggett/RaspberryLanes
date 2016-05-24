@@ -86,19 +86,22 @@ public class Horse implements Comparable<Horse> {
 				if(graphic.image.getRGB(i,j) == -3407872){
 					graphic.image.setRGB(i, j, furColor.getRGB());	
 				}
-				if(graphic.image.getRGB(i,j) == -403660){
+				else if(graphic.image.getRGB(i,j) == -403660){
 					graphic.image.setRGB(i, j, maneColor.getRGB());	
 				}
-				if(graphic.image.getRGB(i,j) == -12865360){
+				else if(graphic.image.getRGB(i,j) == -12865360){
 					graphic.image.setRGB(i, j, saddleColor.getRGB());	
 				}
-				if(graphic.image.getRGB(i,j) == -16777095){// || graphic.image.getRGB(i,j) == Color.white.getRGB()){
+				else if(graphic.image.getRGB(i,j) == -16777095){
 					int rgb = graphic.image.getRGB(i, j);
 			        rgb = rgb & 0x00FFFFFF;
 					graphic.image.setRGB(i,j, rgb);	
+				}else if(graphic.image.getRGB(i,j) != -1){
+					graphic.image.setRGB(i,j, Color.black.getRGB());	
+				}
 				}
 				
-			}
+			
 		}
 		graphic.repaint();
 		
