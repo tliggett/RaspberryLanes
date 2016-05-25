@@ -108,26 +108,26 @@ public class Horse implements Comparable<Horse> {
 	}
 	public double getPPS(){
 		if(time.size() > 0){
-			if(x<67){
-				return 67/furlongs[0];
-			}if(x<134){
-				return 67/furlongs[1];
-			}if(x<201){
-				return 67/furlongs[2];
-			}if(x<268){
-				return 67/furlongs[3];
-			}if(x<335){
-				return 67/furlongs[4];
-			}if(x<402){
-				return 67/furlongs[5];
-			}if(x<469){
-				return 67/furlongs[6];
-			}if(x<536){
-				return 67/furlongs[7];
-			}if(x<603){
-				return 67/furlongs[8];
+			if(x<85){
+				return 85/furlongs[0];
+			}if(x<170){
+				return 85/furlongs[1];
+			}if(x<255){
+				return 85/furlongs[2];
+			}if(x<340){
+				return 85/furlongs[3];
+			}if(x<425){
+				return 85/furlongs[4];
+			}if(x<510){
+				return 85/furlongs[5];
+			}if(x<595){
+				return 85/furlongs[6];
+			}if(x<680){
+				return 85/furlongs[7];
+			}if(x<765){
+				return 85/furlongs[8];
 			}
-				return 67/furlongs[9];
+				return 85/furlongs[9];
 			}else{
 			return 0;
 		}

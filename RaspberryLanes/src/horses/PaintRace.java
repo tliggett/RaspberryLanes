@@ -31,7 +31,7 @@ class PaintRace extends Canvas
 	private HorseList stable;
 	public PaintRace(HorseList racers)
 	{
-		setSize(720, 450);
+		setSize(920, 575);
 		setVisible(true);
 		setBackground(Color.blue);
 		setImage();
@@ -99,13 +99,14 @@ class PaintRace extends Canvas
 		 {
 			window.clearRect(0,0,getWidth(),getHeight());	
 			
-			window.drawImage(img, 0, 0, 723, 450, null);
-			/*for(int i = 0; i<img.getWidth(); i+=67){
+			window.drawImage(img, 0, 0, getWidth(),getHeight(), null);
+			/*for(int i = 0; i<img.getWidth(); i+=85){
 				window.drawRect(i, 0, 1, 500);
 			}*/
+			//window.fillRect(888,130,1,900);
 			
 			for(int i = 0; i <stable.racers.size(); i++){
-				window.drawImage(stable.racers.get(i).graphic.image, (int)stable.racers.get(i).x, (i*27) + 125, 25, 25, null);
+				window.drawImage(stable.racers.get(i).graphic.image, (int)stable.racers.get(i).x, (i*36) + 157, 38, 38, null);
 				
 			}
 		
