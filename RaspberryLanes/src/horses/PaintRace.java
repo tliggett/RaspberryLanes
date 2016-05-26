@@ -125,4 +125,13 @@ class PaintRace extends Canvas
 				e.printStackTrace();
 			}
 	}
+	public void changeImage(String filename){
+		
+		 
+	    try {
+			 img = ImageIO.read(new File(filename));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+}
 }

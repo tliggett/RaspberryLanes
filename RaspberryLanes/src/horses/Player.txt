@@ -1,1 +1,1 @@
-FirstHour,500.0
+FirstHour,591.0

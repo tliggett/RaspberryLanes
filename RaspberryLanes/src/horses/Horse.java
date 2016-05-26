@@ -45,9 +45,9 @@ public class Horse implements Comparable<Horse> {
 		while(furColor.getRGB() == maneColor.getRGB()){
 			maneColor = randomColor();
 		}
-		saddleColor = randomColor();
+		saddleColor = randomSaddleColor();
 		while(saddleColor.getRGB() == maneColor.getRGB()){
-			saddleColor = randomColor();
+			saddleColor = randomSaddleColor();
 		}
 		graphic = new ImagePanel("src/horses/LogoN.png");
 		
@@ -149,13 +149,53 @@ public class Horse implements Comparable<Horse> {
 		Color col = new Color(0);
 		int rnd = (int)(Math.random()*17);
 		switch(rnd){
-		case 0: col = (Color.BLACK);
+		case 0: col = Color.black;
+		break;
+		case 1: col = new Color(255,248,220);
+		break;
+		case 2: col = new Color(184,134,11);
+		break;
+		case 3: col = Color.darkGray;
+		break;
+		case 4: col = new Color(245,245,220);
+		break;
+		case 5: col = Color.GRAY;
+		break;
+		case 6: col = new Color(153, 51, 0);
+		break;
+		case 7: col = new Color(204, 51, 0);
+		break;
+		case 8: col = new Color(102, 26, 0);
+		break;
+		case 9: col = new Color(77, 19, 0);
+		break;
+		case 10: col = new Color(26, 6, 0);
+		break;
+		case 11: col = new Color(255, 168, 128);
+		break;
+		case 12: col = new Color(255, 255, 204);
+		break;
+		case 13: col = new Color(240,255,240);
+		break;
+		case 14: col = new Color(153, 0, 0);
+		break;
+		}
+		
+		
+		return col;
+	}
+	
+	public Color randomSaddleColor(){
+		Color col = new Color(0);
+		int rnd = (int)(Math.random()*17);
+		switch(rnd){
+		case 0: col = new Color(138,43,226);
 		break;
 		case 1: col = Color.pink;
 		break;
 		case 2: col = Color.cyan;
 		break;
-		case 3: col = Color.darkGray;
+		case 3: col = new Color(75,0,130);
 		break;
 		case 4: col = Color.MAGENTA;
 		break;

@@ -236,6 +236,13 @@ public class RaspberryLanes {
 		txtCashOnBet.setBounds(1291, 171, 100, 26);
 		frame.getContentPane().add(txtCashOnBet);
 		txtCashOnBet.setColumns(10);
+		
+		JTextField txtCodes = new JTextField();
+		txtCodes.setBackground(new Color(255, 255, 224));
+		txtCodes.setForeground(new Color(0, 0, 139));
+		txtCodes.setBounds(1049, 675, 100, 26);
+		frame.getContentPane().add(txtCodes);
+		txtCodes.setColumns(10);
 
 		panel = new ImagePanel("src/horses/LogoN.png");
 		panel.setBackground(darkNavy);
@@ -291,9 +298,30 @@ public class RaspberryLanes {
 			}
 
 		});
-
 		btnRaceHorses.setBounds(1257, 751, 166, 68);
 		frame.getContentPane().add(btnRaceHorses);
+		
+		JButton btnCodes = new JButton("GO");
+		btnCodes.setBackground(new Color(255, 215, 0));
+		btnCodes.setForeground(darkNavy);
+		btnCodes.addActionListener(new ActionListener() {
+			@SuppressWarnings("null")
+
+			public void actionPerformed(ActionEvent e) {
+				if (txtCodes.getText().equals(" ")) {
+					return;
+				}
+				String code = txtCodes.getText();
+				if(code.equals("beach")){
+					stadium.changeImage("src/horses/BEACHLANEs.png");
+				}
+
+			}
+
+		});
+
+		btnCodes.setBounds(1149, 675, 25, 25);
+		frame.getContentPane().add(btnCodes);
 
 		JButton btnBetOnHorse = new JButton("Place Bet");
 		btnBetOnHorse.setBounds(1292, 197, 99, 23);
@@ -335,6 +363,7 @@ public class RaspberryLanes {
 		}
 
 	}
+	
 
 	public static void updateStuff() throws NullPointerException, IOException {
 		Collections.sort(stable.racers);
@@ -352,11 +381,11 @@ public class RaspberryLanes {
 			comboBox.addItem(racer.name);
 		}
 		label_3.setText("WINNER");
-		label_3.setForeground(stable.racers.get(0).furColor);
+		label_3.setForeground(stable.racers.get(0).saddleColor);
 		lblTime.setText(Tools.timeToString(stable.racers.get(0).getTime()));
-		lblTime.setForeground(stable.racers.get(0).furColor);
+		lblTime.setForeground(stable.racers.get(0).saddleColor);
 		winnerName.setText(stable.racers.get(0).name);
-		winnerName.setForeground(stable.racers.get(0).furColor);
+		winnerName.setForeground(stable.racers.get(0).saddleColor);
 
 		panel.image = stable.racers.get(0).graphic.image;
 		panel.repaint();
