@@ -22,7 +22,9 @@ public class Horse implements Comparable<Horse> {
 	double[]furlongs = new double[10];
 	String name;
 	double score;
-	Color color;
+	Color furColor;
+	Color maneColor;
+	Color saddleColor;
 	ImagePanel graphic;
 	Image image;
 	double x;
@@ -38,9 +40,17 @@ public class Horse implements Comparable<Horse> {
 		canCompete = true;
 		time = new ArrayList<Double>(); 
 		place = new ArrayList<Integer>();
-		color = randomColor();
-		graphic = new ImagePanel("src/horses/inGame.png");
-		image = ImageIO.read(new File("src/horses/LogoN.png"));
+		furColor = randomColor();
+		maneColor = randomColor();
+		while(furColor.getRGB() == maneColor.getRGB()){
+			maneColor = randomColor();
+		}
+		saddleColor = randomSaddleColor();
+		while(saddleColor.getRGB() == maneColor.getRGB()){
+			saddleColor = randomSaddleColor();
+		}
+		graphic = new ImagePanel("src/horses/LogoN.png");
+		
 		double x = 0;
 		colorGraphic();
 		
@@ -57,9 +67,14 @@ public class Horse implements Comparable<Horse> {
 		heart = Double.parseDouble(fromFile.get(7));
 		time = new ArrayList<Double>(); 
 		place = new ArrayList<Integer>();
-		color = new Color(Integer.parseInt(fromFile.get(8)),Integer.parseInt(fromFile.get(9)),Integer.parseInt(fromFile.get(10)) );
+		furColor = new Color(Integer.parseInt(fromFile.get(8)));
+		maneColor = new Color(Integer.parseInt(fromFile.get(9)));
+		saddleColor = new Color(Integer.parseInt(fromFile.get(10)));
 		graphic = new ImagePanel("src/horses/LogoN.png");
-		image = ImageIO.read(new File("src/horses/LogoN.png"));
+		for(int i = 11; i<fromFile.size(); i++){
+			time.add(Double.parseDouble(fromFile.get(i)));
+		}
+		
 		double x = 0;
 		colorGraphic();	
 	}
@@ -69,20 +84,53 @@ public class Horse implements Comparable<Horse> {
 		for(int i = 0; i < graphic.image.getHeight(); i++){
 			for(int j = 0; j<graphic.image.getWidth(); j++){
 				if(graphic.image.getRGB(i,j) == -3407872){
-					graphic.image.setRGB(i, j, color.getRGB());	
+					graphic.image.setRGB(i, j, furColor.getRGB());	
+				}
+				else if(graphic.image.getRGB(i,j) == -403660){
+					graphic.image.setRGB(i, j, maneColor.getRGB());	
+				}
+				else if(graphic.image.getRGB(i,j) == -12865360){
+					graphic.image.setRGB(i, j, saddleColor.getRGB());	
+				}
+				else if(graphic.image.getRGB(i,j) == -16777095){
+					int rgb = graphic.image.getRGB(i, j);
+			        rgb = rgb & 0x00FFFFFF;
+					graphic.image.setRGB(i,j, rgb);	
+				}else if(graphic.image.getRGB(i,j) != -1){
+					graphic.image.setRGB(i,j, Color.black.getRGB());	
+				}
 				}
 				
-				if(graphic.image.getRGB(i,j) == -16777095){
-					graphic.image.setRGB(i,j, track.getRGB());	
-				}
-				
-			}
+			
 		}
 		graphic.repaint();
 		
 	}
 	public double getPPS(){
-		return 700/ time.get(0);
+		if(time.size() > 0){
+			if(x<85){
+				return 85/furlongs[0];
+			}if(x<170){
+				return 85/furlongs[1];
+			}if(x<255){
+				return 85/furlongs[2];
+			}if(x<340){
+				return 85/furlongs[3];
+			}if(x<425){
+				return 85/furlongs[4];
+			}if(x<510){
+				return 85/furlongs[5];
+			}if(x<595){
+				return 85/furlongs[6];
+			}if(x<680){
+				return 85/furlongs[7];
+			}if(x<765){
+				return 85/furlongs[8];
+			}
+				return 85/furlongs[9];
+			}else{
+			return 0;
+		}
 	}
 	
 	public double calcScore(){
@@ -101,13 +149,53 @@ public class Horse implements Comparable<Horse> {
 		Color col = new Color(0);
 		int rnd = (int)(Math.random()*17);
 		switch(rnd){
-		case 0: col = (Color.BLACK);
+		case 0: col = Color.black;
+		break;
+		case 1: col = new Color(255,248,220);
+		break;
+		case 2: col = new Color(184,134,11);
+		break;
+		case 3: col = Color.darkGray;
+		break;
+		case 4: col = new Color(245,245,220);
+		break;
+		case 5: col = Color.GRAY;
+		break;
+		case 6: col = new Color(153, 51, 0);
+		break;
+		case 7: col = new Color(204, 51, 0);
+		break;
+		case 8: col = new Color(102, 26, 0);
+		break;
+		case 9: col = new Color(77, 19, 0);
+		break;
+		case 10: col = new Color(26, 6, 0);
+		break;
+		case 11: col = new Color(255, 168, 128);
+		break;
+		case 12: col = new Color(255, 255, 204);
+		break;
+		case 13: col = new Color(240,255,240);
+		break;
+		case 14: col = new Color(153, 0, 0);
+		break;
+		}
+		
+		
+		return col;
+	}
+	
+	public Color randomSaddleColor(){
+		Color col = new Color(0);
+		int rnd = (int)(Math.random()*17);
+		switch(rnd){
+		case 0: col = new Color(138,43,226);
 		break;
 		case 1: col = Color.pink;
 		break;
 		case 2: col = Color.cyan;
 		break;
-		case 3: col = Color.darkGray;
+		case 3: col = new Color(75,0,130);
 		break;
 		case 4: col = Color.MAGENTA;
 		break;
@@ -148,8 +236,10 @@ public class Horse implements Comparable<Horse> {
 			return;
 		}
 		
+		double rnd = ((Math.random()*6));
+		
 		for(int i = 0; i<furlongs.length; i++){
-			furlongs[i] = 21 - (speed/10);
+			furlongs[i] = 21 - (speed/10) + rnd/10;
 		}
 		
 		furlongs[0] += (10-(acc/10))*2;
@@ -169,7 +259,7 @@ public class Horse implements Comparable<Horse> {
 		for(double furlong : furlongs){
 			time += furlong;
 		}
-		time+= ((int)(Math.random()*6));
+		
 		time+=4;
 		int ageDiff = maxAge-age;
 		if(ageDiff!= 0){
@@ -214,9 +304,12 @@ public class Horse implements Comparable<Horse> {
 			+ acc + ","
 			+ stamina + ","
 			+ heart + ","
-			+ color.getRed() + ","
-			+color.getGreen() + ","
-			+ color.getBlue() + ",";
+			+ furColor.getRGB() + ","
+			+ maneColor.getRGB() + ","
+			+ saddleColor.getRGB() + ",";
+		for(Double tim : time){
+			forRet += tim + ",";
+		}
 			
 		return forRet;
 	}
@@ -233,7 +326,11 @@ public class Horse implements Comparable<Horse> {
 		
 	}
 	public String toPreview(){
-		return name + "; Age :: " + age + ";";
+		String forRet = "PREVIOUS TIMES\n";
+		for(Double tim : time){
+			forRet += Tools.timeToString(tim) + "\n";
+		}
+		return forRet;
 	}
 	
 }

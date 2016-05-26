@@ -20,17 +20,18 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import java.awt.Canvas;
 
-class AnimatedCar extends Canvas
+class PaintRace extends Canvas
 {
 	private int x;
 	private int y;
+	int i;
 	private Timer timer;
-	private final static int SLEEP = 10;  //bigger # = slower animation	
+	private final static int SLEEP = 50;  //bigger # = slower animation	
 	BufferedImage img = null;
-	HorseList stable;
-	public AnimatedCar(HorseList racers)
+	private HorseList stable;
+	public PaintRace(HorseList racers)
 	{
-		setSize(664, 500);
+		setSize(920, 575);
 		setVisible(true);
 		setBackground(Color.blue);
 		setImage();
@@ -41,8 +42,25 @@ class AnimatedCar extends Canvas
 				for(int i = 0; i <stable.racers.size(); i++){
 					stable.racers.get(i).x += stable.racers.get(i).getPPS();
 				}
-				
+				i++;
+				if(i>150){
+					i = 0;
+					timer.restart();
+					timer.stop();
+					for(int i = 0; i <stable.racers.size(); i++){
+						stable.racers.get(i).x = 0;
+					}
+					try {
+						RaspberryLanes.updateStuff();
+					} catch (NullPointerException | IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+				}
 				repaint();  //each time timer fires it will call paint	
+				
 			}
 		};
 		timer = new Timer(SLEEP, paintCaller);
@@ -53,13 +71,18 @@ class AnimatedCar extends Canvas
 			
 	}
 	public void updateStable(HorseList update){
-		stable.racers.removeAll(stable.racers);
-		for(Horse horse : update.racers){
-			stable.racers.add(horse);
-		}
+		stable = update;
+		
 		int i =1;
 		i++;
 		
+	}
+	public boolean isActive(){
+		if(timer.isRunning()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	public void startTimer(){
 		timer.start();
@@ -75,13 +98,18 @@ class AnimatedCar extends Canvas
 		
 		 {
 			window.clearRect(0,0,getWidth(),getHeight());	
-			window.drawImage(img, 0, 0, 723, 500, null);
-			window.setColor(Color.white);
-			window.fillRect(1100, 100, 50, 700);	
+			
+			window.drawImage(img, 0, 0, getWidth(),getHeight(), null);
+			/*for(int i = 0; i<img.getWidth(); i+=85){
+				window.drawRect(i, 0, 1, 500);
+			}*/
+			//window.fillRect(888,130,1,900);
+			
 			for(int i = 0; i <stable.racers.size(); i++){
-				window.drawImage(stable.racers.get(i).graphic.image, (int)x, (i*30) + 140, 30, 30, null);
+				window.drawImage(stable.racers.get(i).graphic.image, (int)stable.racers.get(i).x, (i*36) + 157, 38, 38, null);
 				
 			}
+		
 			
 			  }
 
@@ -97,4 +125,13 @@ class AnimatedCar extends Canvas
 				e.printStackTrace();
 			}
 	}
+	public void changeImage(String filename){
+		
+		 
+	    try {
+			 img = ImageIO.read(new File(filename));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+}
 }
