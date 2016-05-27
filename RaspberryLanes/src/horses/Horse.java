@@ -215,7 +215,7 @@ public class Horse implements Comparable<Horse> {
 	public double calcScore(){
 		double ret = 0;
 		if(time.size() == 0){
-			return 1;
+			return 2;
 		}
 		ret = 130-time.get(time.size()-1)-(age/2); 
 		if(ret <= 0){

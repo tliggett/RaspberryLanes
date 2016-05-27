@@ -17,6 +17,7 @@ import java.awt.Image;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -27,6 +28,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 import javax.swing.JMenu;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -103,7 +107,8 @@ public class RaspberryLanes {
 		frame.setBounds(0, 0, 1440, 860);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
+        playSound();
+        
 		//Creates the text box with the results from the previous week.
 		txtPreviousWeek = new JTextArea();
 		txtPreviousWeek.setFont(new Font("Impact", Font.PLAIN, 20));
@@ -313,50 +318,50 @@ public class RaspberryLanes {
 					txtCashOnBet.setText("");
 					stadium.repaint();
 				}
-				if(money.equals("beach")){
+				else if(money.equals("beach")){
 					stadium.changeImage("src/horses/beach.png");
 					stadium.repaint();
 					txtCashOnBet.setText("");
 				}
-				if(money.equals("reset")){
+				else if(money.equals("reset")){
 					stadium.changeImage("src/horses/Track.png");
 					txtCashOnBet.setText("");
 					stadium.repaint();
 				}
-				if(money.equals("raspberry")){
+				else if(money.equals("raspberry")){
 					stable.racers.remove(9);
 					Horse raspberry = new Horse(1);
 					stable.racers.add(raspberry);
 					stadium.repaint();
 				}
-				if(money.equals("track")){
+				else if(money.equals("track")){
 					stable.racers.remove(9);
 					Horse track = new Horse(2);
 					track.graphic.repaint();
 					stable.racers.add(track);
 					stadium.repaint();
 				}
-				if(money.equals("trump")){
+				else if(money.equals("trump")){
 					stable.racers.remove(8);
 					Horse trump = new Horse(3);
 					trump.graphic.repaint();
 					stable.racers.add(trump);
 					stadium.repaint();
 				}
-				if(money.equals("bolt")){
+				else if(money.equals("bolt")){
 					stable.racers.remove(7);
 					Horse bolt = new Horse(4);
 					bolt.graphic.repaint();
 					stable.racers.add(bolt);
 					stadium.repaint();
-				}
+				}else {
 				int cash = Integer.parseInt(money);
 				Bet bet = new Bet(comboBox.getSelectedItem().toString(), player.placeBet(cash), stable);
 				betList.bets.add(bet);
 				txtrSgg.setText(betList.toString());
 				lblPlayerName.setText(player.toString());
 
-			}
+			}}
 		});
 
 	}
@@ -407,5 +412,16 @@ public class RaspberryLanes {
 		}
 		
 		panel.repaint();
+	}
+	public void playSound() {
+	    try {
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/horses/chocolate.wav").getAbsoluteFile());
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.start();
+	    } catch(Exception ex) {
+	        System.out.println("Error with playing sound.");
+	        ex.printStackTrace();
+	    }
 	}
 }

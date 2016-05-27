@@ -26,7 +26,7 @@ class PaintRace extends Canvas
 	private int y;
 	int i;
 	private Timer timer;
-	private final static int SLEEP = 50;  //bigger # = slower animation	
+	private final static int SLEEP = 30;  //bigger # = slower animation	
 	BufferedImage img = null;
 	private HorseList stable;
 	public PaintRace(HorseList racers)
@@ -40,7 +40,10 @@ class PaintRace extends Canvas
 			public void actionPerformed(ActionEvent event)
 			{
 				for(int i = 0; i <stable.racers.size(); i++){
-					stable.racers.get(i).x += stable.racers.get(i).getPPS();
+					if(stable.racers.get(i).time.get(stable.racers.get(i).time.size()-1) != 999){
+						stable.racers.get(i).x += stable.racers.get(i).getPPS();
+						}
+					
 				}
 				i++;
 				if(i>150){
@@ -48,7 +51,10 @@ class PaintRace extends Canvas
 					timer.restart();
 					timer.stop();
 					for(int i = 0; i <stable.racers.size(); i++){
+						
 						stable.racers.get(i).x = 0;
+					
+						
 					}
 					try {
 						RaspberryLanes.updateStuff();
@@ -73,8 +79,6 @@ class PaintRace extends Canvas
 	public void updateStable(HorseList update){
 		stable = update;
 		
-		int i =1;
-		i++;
 		
 	}
 	public boolean isActive(){
