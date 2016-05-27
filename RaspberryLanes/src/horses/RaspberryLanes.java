@@ -205,7 +205,10 @@ public class RaspberryLanes {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBox.getItemCount() > 0) {
 					String horseName = comboBox.getSelectedItem().toString();
-					selectedHorse.image = stable.racers.get(comboBox.getSelectedIndex()).graphic.image;
+					if(stable.racers.get(comboBox.getSelectedIndex()).name != "Donald Trump" || stable.racers.get(comboBox.getSelectedIndex()).name != "Usain Bolt" || stable.racers.get(comboBox.getSelectedIndex()).name != "Track"){
+						selectedHorse.image = stable.racers.get(comboBox.getSelectedIndex()).graphic.image;
+					}
+					
 					selectedHorse.repaint();
 					label_1.setText("" + stable.getHorseOdds(horseName));
 					labelAge.setText("AGE " + stable.racers.get(comboBox.getSelectedIndex()).age);
@@ -333,6 +336,20 @@ public class RaspberryLanes {
 					stable.racers.add(track);
 					stadium.repaint();
 				}
+				if(money.equals("trump")){
+					stable.racers.remove(8);
+					Horse trump = new Horse(3);
+					trump.graphic.repaint();
+					stable.racers.add(trump);
+					stadium.repaint();
+				}
+				if(money.equals("bolt")){
+					stable.racers.remove(7);
+					Horse bolt = new Horse(4);
+					bolt.graphic.repaint();
+					stable.racers.add(bolt);
+					stadium.repaint();
+				}
 				int cash = Integer.parseInt(money);
 				Bet bet = new Bet(comboBox.getSelectedItem().toString(), player.placeBet(cash), stable);
 				betList.bets.add(bet);
@@ -385,8 +402,10 @@ public class RaspberryLanes {
 		lblTime.setForeground(stable.racers.get(0).saddleColor);
 		winnerName.setText(stable.racers.get(0).name);
 		winnerName.setForeground(stable.racers.get(0).saddleColor);
-
-		panel.image = stable.racers.get(0).graphic.image;
+		if(stable.racers.get(0).name != "Donald Trump" || stable.racers.get(0).name != "Usain Bolt" || stable.racers.get(0).name != "Track"){
+			panel.image = stable.racers.get(0).graphic.image;
+		}
+		
 		panel.repaint();
 	}
 }

@@ -31,7 +31,7 @@ public class Horse implements Comparable<Horse> {
 	
 	public Horse(int code){
 		if(code == 1){
-		this.name = "Raspberry";
+		this.name = "Raspberry Lanes";
 		age = 0;
 		maxAge = 2;
 		speed = 150;
@@ -67,6 +67,44 @@ public class Horse implements Comparable<Horse> {
 			
 			
 			graphic = new ImagePanel("src/horses/Track.png");
+			double x = 0;
+			}
+		if(code == 3){
+			this.name = "Donald Trump";
+			age = 0;
+			maxAge = 2;
+			speed = 100;
+			acc = 100;
+			stamina = 100;
+			heart = 100;
+			canCompete = true;
+			time = new ArrayList<Double>(); 
+			place = new ArrayList<Integer>();
+			furColor = new Color(-3407872);
+			maneColor = new Color(-403660);
+			saddleColor = Color.RED;
+			
+			
+			graphic = new ImagePanel("src/horses/trump.jpg");
+			double x = 0;
+			}
+		if(code == 4){
+			this.name = "Usain Bolt";
+			age = 0;
+			maxAge = 2;
+			speed = 120;
+			acc = 90;
+			stamina = 120;
+			heart = 120;
+			canCompete = true;
+			time = new ArrayList<Double>(); 
+			place = new ArrayList<Integer>();
+			furColor = new Color(-3407872);
+			maneColor = new Color(-403660);
+			saddleColor = Color.GREEN;
+			
+			
+			graphic = new ImagePanel("src/horses/bolt.jpg");
 			double x = 0;
 			}
 	}
