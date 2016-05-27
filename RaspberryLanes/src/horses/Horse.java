@@ -29,6 +29,47 @@ public class Horse implements Comparable<Horse> {
 	Image image;
 	double x;
 	
+	public Horse(int code){
+		if(code == 1){
+		this.name = "Raspberry";
+		age = 0;
+		maxAge = 2;
+		speed = 150;
+		acc = 120;
+		stamina = 120;
+		heart = 120;
+		canCompete = true;
+		time = new ArrayList<Double>(); 
+		place = new ArrayList<Integer>();
+		furColor = new Color(-3407872);
+		maneColor = new Color(-403660);
+		saddleColor = new Color(-12865360);
+		
+		
+		graphic = new ImagePanel("src/horses/LogoN.png");
+		double x = 0;
+		colorGraphic();
+		}
+		if(code == 2){
+			this.name = "Track";
+			age = 0;
+			maxAge = 2;
+			speed = 50;
+			acc = 50;
+			stamina = 50;
+			heart = 50;
+			canCompete = true;
+			time = new ArrayList<Double>(); 
+			place = new ArrayList<Integer>();
+			furColor = new Color(-3407872);
+			maneColor = new Color(-403660);
+			saddleColor = new Color(-12865360);
+			
+			
+			graphic = new ImagePanel("src/horses/Track.png");
+			double x = 0;
+			}
+	}
 	public Horse(String name) throws IOException{
 		this.name = name;
 		age = 0;

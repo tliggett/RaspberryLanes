@@ -236,13 +236,6 @@ public class RaspberryLanes {
 		txtCashOnBet.setBounds(1291, 171, 100, 26);
 		frame.getContentPane().add(txtCashOnBet);
 		txtCashOnBet.setColumns(10);
-		
-		JTextField txtCodes = new JTextField();
-		txtCodes.setBackground(new Color(255, 255, 224));
-		txtCodes.setForeground(new Color(0, 0, 139));
-		txtCodes.setBounds(1049, 675, 100, 26);
-		frame.getContentPane().add(txtCodes);
-		txtCodes.setColumns(10);
 
 		panel = new ImagePanel("src/horses/LogoN.png");
 		panel.setBackground(darkNavy);
@@ -300,28 +293,6 @@ public class RaspberryLanes {
 		});
 		btnRaceHorses.setBounds(1257, 751, 166, 68);
 		frame.getContentPane().add(btnRaceHorses);
-		
-		JButton btnCodes = new JButton("GO");
-		btnCodes.setBackground(new Color(255, 215, 0));
-		btnCodes.setForeground(darkNavy);
-		btnCodes.addActionListener(new ActionListener() {
-			@SuppressWarnings("null")
-
-			public void actionPerformed(ActionEvent e) {
-				if (txtCodes.getText().equals(" ")) {
-					return;
-				}
-				String code = txtCodes.getText();
-				if(code.equals("beach")){
-					stadium.changeImage("src/horses/BEACHLANEs.png");
-				}
-
-			}
-
-		});
-
-		btnCodes.setBounds(1149, 675, 25, 25);
-		frame.getContentPane().add(btnCodes);
 
 		JButton btnBetOnHorse = new JButton("Place Bet");
 		btnBetOnHorse.setBounds(1292, 197, 99, 23);
@@ -334,6 +305,34 @@ public class RaspberryLanes {
 					return;
 				}
 				String money = txtCashOnBet.getText();
+				if(money.equals("santa")){
+					stadium.changeImage("src/horses/xmas.png");
+					txtCashOnBet.setText("");
+					stadium.repaint();
+				}
+				if(money.equals("beach")){
+					stadium.changeImage("src/horses/beach.png");
+					stadium.repaint();
+					txtCashOnBet.setText("");
+				}
+				if(money.equals("reset")){
+					stadium.changeImage("src/horses/Track.png");
+					txtCashOnBet.setText("");
+					stadium.repaint();
+				}
+				if(money.equals("raspberry")){
+					stable.racers.remove(9);
+					Horse raspberry = new Horse(1);
+					stable.racers.add(raspberry);
+					stadium.repaint();
+				}
+				if(money.equals("track")){
+					stable.racers.remove(9);
+					Horse track = new Horse(2);
+					track.graphic.repaint();
+					stable.racers.add(track);
+					stadium.repaint();
+				}
 				int cash = Integer.parseInt(money);
 				Bet bet = new Bet(comboBox.getSelectedItem().toString(), player.placeBet(cash), stable);
 				betList.bets.add(bet);
