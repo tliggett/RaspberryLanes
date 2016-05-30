@@ -29,12 +29,14 @@ class PaintRace extends Canvas
 	private final static int SLEEP = 30;  //bigger # = slower animation	
 	BufferedImage img = null;
 	private HorseList stable;
+	int gallop;
 	public PaintRace(HorseList racers)
 	{
 		setSize(920, 575);
 		setVisible(true);
 		setBackground(Color.blue);
 		setImage();
+		gallop = 0;
 		stable = racers;
 		ActionListener paintCaller = new ActionListener(){
 			public void actionPerformed(ActionEvent event)
@@ -59,6 +61,9 @@ class PaintRace extends Canvas
 					try {
 						RaspberryLanes.updateStuff();
 					} catch (NullPointerException | IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -108,9 +113,13 @@ class PaintRace extends Canvas
 				window.drawRect(i, 0, 1, 500);
 			}*/
 			//window.fillRect(888,130,1,900);
-			
+			if(gallop == 0){
+				gallop = 1;
+			}else{
+				gallop = 0;
+			}
 			for(int i = 0; i <stable.racers.size(); i++){
-				window.drawImage(stable.racers.get(i).graphic.image, (int)stable.racers.get(i).x, (i*36) + 157, 38, 38, null);
+				window.drawImage(stable.racers.get(i).graphic.image, (int)stable.racers.get(i).x, (i*36 + gallop) + 157, 38, 38, null);
 				
 			}
 		

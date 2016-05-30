@@ -31,6 +31,8 @@ import javax.swing.JMenu;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -51,6 +53,8 @@ public class RaspberryLanes {
 	private final Action newGame = new SwingAction();
 	Image img = null;
 	static int i;
+	static Sound theme;
+	Sound trumpet;
 
 	static PaintRace stadium;
 	static JCheckBox chckbxWatchRace;
@@ -80,11 +84,10 @@ public class RaspberryLanes {
 
 	/**
 	 * Create the application.
-	 * 
-	 * @throws NumberFormatException
-	 * @throws IOException
+	 * @throws Exception 
+	 * @throws LineUnavailableException 
 	 */
-	public RaspberryLanes() throws NumberFormatException, IOException {
+	public RaspberryLanes() throws LineUnavailableException, Exception {
 
 		horsenames = ReadFile.readfile("src/horses/HorseNameDatabase.txt");
 		stable = new HorseList();
@@ -95,8 +98,11 @@ public class RaspberryLanes {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws Exception 
+	 * @throws IOException 
+	 * @throws LineUnavailableException 
 	 */
-	private void initialize() {
+	private void initialize() throws LineUnavailableException, IOException, Exception {
 		
 		//Establishes original frame and sets special colors.
 		frame = new JFrame();
@@ -107,7 +113,10 @@ public class RaspberryLanes {
 		frame.setBounds(0, 0, 1440, 860);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-        playSound();
+       
+
+		theme = new Sound("src/horses/theme.wav", 650000, -1);
+		
         
 		//Creates the text box with the results from the previous week.
 		txtPreviousWeek = new JTextArea();
@@ -295,6 +304,7 @@ public class RaspberryLanes {
 				stable.doRace();
 				stadium.updateStable(stable);
 				stadium.startTimer();
+				theme.start();
 
 			}
 
@@ -386,7 +396,9 @@ public class RaspberryLanes {
 	}
 	
 
-	public static void updateStuff() throws NullPointerException, IOException {
+	public static void updateStuff() throws Exception {
+		System.out.println(theme.clip.getFramePosition());
+		theme.stop();
 		Collections.sort(stable.racers);
 		stadium.updateStable(stable);
 		txtPreviousWeek.setText(stable.printResults(1));
@@ -413,15 +425,5 @@ public class RaspberryLanes {
 		
 		panel.repaint();
 	}
-	public void playSound() {
-	    try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/horses/chocolate.wav").getAbsoluteFile());
-	        Clip clip = AudioSystem.getClip();
-	        clip.open(audioInputStream);
-	        clip.start();
-	    } catch(Exception ex) {
-	        System.out.println("Error with playing sound.");
-	        ex.printStackTrace();
-	    }
-	}
+	
 }
