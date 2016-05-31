@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.Timer;
 import javax.imageio.ImageIO;
@@ -30,6 +31,8 @@ class PaintRace extends Canvas
 	BufferedImage img = null;
 	private HorseList stable;
 	int gallop;
+	boolean xMas = false;
+	ArrayList<ArrayList<Integer>> snow = new ArrayList<ArrayList<Integer>>();
 	public PaintRace(HorseList racers)
 	{
 		setSize(920, 575);
@@ -86,6 +89,9 @@ class PaintRace extends Canvas
 		
 		
 	}
+	public void christmas(Boolean isMas){
+		xMas = isMas;
+	}
 	public boolean isActive(){
 		if(timer.isRunning()){
 			return true;
@@ -109,6 +115,7 @@ class PaintRace extends Canvas
 			window.clearRect(0,0,getWidth(),getHeight());	
 			
 			window.drawImage(img, 0, 0, getWidth(),getHeight(), null);
+			
 			/*for(int i = 0; i<img.getWidth(); i+=85){
 				window.drawRect(i, 0, 1, 500);
 			}*/
@@ -123,6 +130,7 @@ class PaintRace extends Canvas
 				
 			}
 		
+			if()
 			
 			  }
 
