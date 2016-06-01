@@ -37,7 +37,7 @@ class PaintMenu extends Canvas
 		setSize(920, 575);
 		setVisible(true);
 		setBackground(Color.blue);
-		setImage();
+		setImage("src/horses/mixedberry.png");
 		for(int[] flake : snow){
 			flake[0] = (int) (Math.random() * 920);
 			flake[1] = (int) (Math.random() * 575);
@@ -84,9 +84,11 @@ class PaintMenu extends Canvas
 		
 		 {
 			window.clearRect(0,0,getWidth(),getHeight());	
+			setImage("src/horses/raspberry.png");
+			window.drawImage(img, 500, 300, 440,440, null);
+			setImage("src/horses/mixedberry.png");
 			
-			window.drawImage(img, 600, 300, 240,240, null);
-			
+			window.drawImage(img, 500, 300, 440,440, null);
 			/*for(int i = 0; i<img.getWidth(); i+=85){
 				window.drawRect(i, 0, 1, 500);
 			}*/
@@ -102,11 +104,11 @@ class PaintMenu extends Canvas
 		
 		
 	}	
-	public void setImage(){
+	public void setImage(String filename){
 		
 		 
 		    try {
-				 img = ImageIO.read(new File("src/horses/LogoN.png"));
+				 img = ImageIO.read(new File(filename));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

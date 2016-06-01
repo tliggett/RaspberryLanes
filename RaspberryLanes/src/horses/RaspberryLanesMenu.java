@@ -108,7 +108,7 @@ public class RaspberryLanesMenu {
 		frame.getContentPane().setLayout(null);
        
 
-		theme = new Sound("src/horses/chocolate.wav", 0, -1);
+		theme = new Sound("src/horses/theme.wav", 0, -1);
 		theme.start();
         
 

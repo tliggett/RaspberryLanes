@@ -32,7 +32,7 @@ class PaintRace extends Canvas
 	private HorseList stable;
 	int gallop;
 	boolean xMas = false;
-	int[][]snow = new int[300][2];
+	int[][]snow = new int[500][2];
 	public PaintRace(HorseList racers)
 	{
 		setSize(920, 575);
