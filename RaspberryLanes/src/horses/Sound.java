@@ -24,9 +24,18 @@ public class Sound {
         this.start = start;
         this.end = end;
 	}
+	void setSound(String filename) throws Exception{
+		this.filename = filename;
+		audioInputStream = AudioSystem.getAudioInputStream(new File(this.filename).getAbsoluteFile());
+		clip.close();
+		clip.open(audioInputStream);
+	}
 	
-	
-	void start(){
+	void setStart(int start){
+		this.start = start;
+	}
+	void start() throws Exception{
+		
 		clip.setFramePosition(start);
 		clip.start();
 	}
@@ -36,6 +45,7 @@ public class Sound {
 		audioInputStream = AudioSystem.getAudioInputStream(new File(this.filename).getAbsoluteFile());
 		clip.close();
 		clip.open(audioInputStream);
+		
 	}
 	
 }

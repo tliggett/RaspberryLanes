@@ -32,13 +32,17 @@ class PaintRace extends Canvas
 	private HorseList stable;
 	int gallop;
 	boolean xMas = false;
-	ArrayList<ArrayList<Integer>> snow = new ArrayList<ArrayList<Integer>>();
+	int[][]snow = new int[300][2];
 	public PaintRace(HorseList racers)
 	{
 		setSize(920, 575);
 		setVisible(true);
 		setBackground(Color.blue);
 		setImage();
+		for(int[] flake : snow){
+			flake[0] = (int) (Math.random() * 920);
+			flake[1] = (int) (Math.random() * 575);
+		}
 		gallop = 0;
 		stable = racers;
 		ActionListener paintCaller = new ActionListener(){
@@ -92,6 +96,7 @@ class PaintRace extends Canvas
 	public void christmas(Boolean isMas){
 		xMas = isMas;
 	}
+	
 	public boolean isActive(){
 		if(timer.isRunning()){
 			return true;
@@ -130,8 +135,21 @@ class PaintRace extends Canvas
 				
 			}
 		
-			if()
 			
+			window.setColor(Color.white);
+			
+			if(xMas){
+				for(int[] snowflake : snow){
+					
+					window.fillRect(snowflake[0], snowflake[1], 3, 3);
+					snowflake[1] += 1;
+					if(snowflake[1] > 575){
+						snowflake[1] = 0;
+						snowflake[0] = (int)(Math.random() * 920);
+					}
+					
+				}
+			}
 			  }
 
 		

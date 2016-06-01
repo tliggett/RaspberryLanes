@@ -55,7 +55,6 @@ public class RaspberryLanes {
 	static int i;
 	static Sound theme;
 	Sound trumpet;
-
 	static PaintRace stadium;
 	static JCheckBox chckbxWatchRace;
 	static JComboBox<String> comboBox;
@@ -167,10 +166,16 @@ public class RaspberryLanes {
 		mntmSaveGame.setAction(saveGame);
 		mnFile.add(mntmSaveGame);
 
+		
+		
+		
+		
 		//Animation of the actual race
 		stadium = new PaintRace(stable);
 		stadium.setBounds(254, 100, 920, 575);
 		frame.getContentPane().add(stadium);
+		
+		
 
 		
 		JLabel label_1 = new JLabel("");
@@ -304,7 +309,12 @@ public class RaspberryLanes {
 				stable.doRace();
 				stadium.updateStable(stable);
 				stadium.startTimer();
-				theme.start();
+				try {
+					theme.start();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 
@@ -325,16 +335,38 @@ public class RaspberryLanes {
 				String money = txtCashOnBet.getText();
 				if(money.equals("santa")){
 					stadium.changeImage("src/horses/xmas.png");
+					stadium.christmas(true);
 					txtCashOnBet.setText("");
+					try {
+						theme.setSound("src/horses/bells.wav");
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					stadium.repaint();
+					
 				}
 				else if(money.equals("beach")){
 					stadium.changeImage("src/horses/beach.png");
+					stadium.christmas(false);
 					stadium.repaint();
+					try {
+						theme.setSound("src/horses/theme.wav");
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					txtCashOnBet.setText("");
 				}
 				else if(money.equals("reset")){
 					stadium.changeImage("src/horses/Track.png");
+					stadium.christmas(false);
+					try {
+						theme.setSound("src/horses/theme.wav");
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					txtCashOnBet.setText("");
 					stadium.repaint();
 				}
@@ -397,14 +429,25 @@ public class RaspberryLanes {
 	
 
 	public static void updateStuff() throws Exception {
-		System.out.println(theme.clip.getFramePosition());
+		//System.out.println(theme.clip.getFramePosition());
 		theme.stop();
 		Collections.sort(stable.racers);
 		stadium.updateStable(stable);
 		txtPreviousWeek.setText(stable.printResults(1));
 		while (stable.racers.size() < 10) {
 			int rand = (int) (Math.random() * (horsenames.size() - 1));
-			stable.racers.add(new Horse(horsenames.get(rand).get(0)));
+			String horsename = horsenames.get(rand).get(0);
+			boolean isSame = true;
+			while(isSame){
+				boolean Same = false;
+				for(Horse racer : stable.racers){
+					if(racer.name.equals(horsename)){
+						Same = true;
+					}
+				}
+				isSame = Same;
+			}
+			stable.racers.add(new Horse(horsename));
 		}
 		txtrSgg.setText("");
 		player.cash += betList.reward(stable);
