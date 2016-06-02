@@ -336,6 +336,7 @@ public class RaspberryLanes {
 				if(money.equals("santa")){
 					stadium.changeImage("src/horses/xmas.png");
 					stadium.christmas(true);
+					stadium.chocolate(false);
 					txtCashOnBet.setText("");
 					try {
 						theme.setSound("src/horses/bells.wav");
@@ -349,6 +350,7 @@ public class RaspberryLanes {
 				else if(money.equals("beach")){
 					stadium.changeImage("src/horses/beach.png");
 					stadium.christmas(false);
+					stadium.chocolate(false);
 					stadium.repaint();
 					try {
 						theme.setSound("src/horses/theme.wav");
@@ -361,8 +363,22 @@ public class RaspberryLanes {
 				else if(money.equals("reset")){
 					stadium.changeImage("src/horses/Track.png");
 					stadium.christmas(false);
+					stadium.chocolate(false);
 					try {
 						theme.setSound("src/horses/theme.wav");
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					txtCashOnBet.setText("");
+					stadium.repaint();
+				}
+				else if(money.equals("chocolate")){
+					stadium.changeImage("src/horses/CHOCOLATERAIN.png");
+					stadium.christmas(false);
+					stadium.chocolate(true);
+					try {
+						theme.setSound("src/horses/chocolate.wav");
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

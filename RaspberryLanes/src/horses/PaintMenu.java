@@ -7,6 +7,7 @@ package horses;
 //Lab  -
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Window;
 import java.awt.Color;
@@ -19,6 +20,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.Timer;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+
+import java.awt.AlphaComposite;
 import java.awt.Canvas;
 
 class PaintMenu extends Canvas
@@ -29,7 +32,7 @@ class PaintMenu extends Canvas
 	private Timer timer;
 	private final static int SLEEP = 30;  //bigger # = slower animation	
 	BufferedImage img = null;
-
+	float alpha = 1f;
 	boolean xMas = false;
 	int[][]snow = new int[300][2];
 	public PaintMenu()
@@ -83,12 +86,22 @@ class PaintMenu extends Canvas
 	{
 		
 		 {
-			window.clearRect(0,0,getWidth(),getHeight());	
+			 
+			 
+			Graphics2D g2d = (Graphics2D) window.create();
+			g2d.clearRect(0,0,getWidth(),getHeight());	
 			setImage("src/horses/raspberry.png");
-			window.drawImage(img, 500, 300, 440,440, null);
+	
+			alpha -= -0.01f;
+			if(alpha < 0f){
+				alpha = 0f;
+			}
+			g2d.setComposite(AlphaComposite.SrcOver.derive(alpha));
+			g2d.drawImage(img, 500, 300, 440,440, null);
 			setImage("src/horses/mixedberry.png");
 			
-			window.drawImage(img, 500, 300, 440,440, null);
+			g2d.setComposite(AlphaComposite.SrcOver.derive(1f - alpha));
+			g2d.drawImage(img, 500, 300, 440,440, null);
 			/*for(int i = 0; i<img.getWidth(); i+=85){
 				window.drawRect(i, 0, 1, 500);
 			}*/
@@ -96,7 +109,7 @@ class PaintMenu extends Canvas
 		
 			
 			
-			window.setColor(Color.white);
+			g2d.setColor(Color.white);
 			
 			
 			  }
