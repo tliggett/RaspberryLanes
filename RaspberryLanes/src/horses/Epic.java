@@ -83,7 +83,7 @@ class Epic extends Canvas
 	{
 		
 		 {
-			int it = (int) (Math.random() * 85) + 15;
+			int it = (int) (Math.random() * 85) + 5;
 			for(int i = 0; i<1440; i+= it){
 				for(int j = 0; j<860; j+=it){
 					window.setColor(random());

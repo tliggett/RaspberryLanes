@@ -361,14 +361,13 @@ public class RaspberryGUI {
 					stable.racers.add(raspberry);
 					stadium.repaint();
 					
+				}else if(money.equals("epic")){
+					Epic epic = new Epic();
+					epic.setBounds(254, 100, 920, 575);
+					frame.getContentPane().remove(stadium);
+					frame.getContentPane().add(epic);
 				}
-				else if(money.equals("track")){
-					stable.racers.remove(9);
-					Horse track = new Horse(2);
-					track.graphic.repaint();
-					stable.racers.add(track);
-					stadium.repaint();
-				}
+				
 				else if(money.equals("trump")){
 					stable.racers.remove(8);
 					Horse trump = new Horse(3);
