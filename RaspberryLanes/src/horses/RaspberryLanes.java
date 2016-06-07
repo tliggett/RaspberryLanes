@@ -68,11 +68,11 @@ public class RaspberryLanes {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main( boolean isNew, String playerName, String map) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RaspberryLanes window = new RaspberryLanes();
+					RaspberryLanes window = new RaspberryLanes(isNew, playerName, map);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,16 +83,23 @@ public class RaspberryLanes {
 
 	/**
 	 * Create the application.
+	 * @param isNew 
 	 * @throws Exception 
 	 * @throws LineUnavailableException 
 	 */
-	public RaspberryLanes() throws LineUnavailableException, Exception {
+	public RaspberryLanes(boolean isNew, String playerName, String map) throws LineUnavailableException, Exception {
 
-		horsenames = ReadFile.readfile("src/horses/HorseNameDatabase.txt");
-		stable = new HorseList();
+		horsenames = ReadFile.readfile("src/data/HorseNameDatabase.txt");
+		stable = new HorseList(isNew);
 		betList = new BetList();
-		player = new Player();
-		initialize();
+		stadium = new PaintRace(stable, map);
+		if(isNew){
+			player = new Player(playerName);
+		}else{
+			player = new Player();
+		}
+		
+		initialize( map);
 	}
 
 	/**
@@ -101,7 +108,7 @@ public class RaspberryLanes {
 	 * @throws IOException 
 	 * @throws LineUnavailableException 
 	 */
-	private void initialize() throws LineUnavailableException, IOException, Exception {
+	private void initialize(String map) throws LineUnavailableException, IOException, Exception {
 		
 		//Establishes original frame and sets special colors.
 		frame = new JFrame();
@@ -113,8 +120,21 @@ public class RaspberryLanes {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
        
-
-		theme = new Sound("src/horses/theme.wav", 650000, -1);
+		switch(map){
+		case "Chocolate": 
+			theme = new Sound("src/data/chocolate.wav", 0, -1);
+			break;
+		case "Classic": 
+			theme = new Sound("src/data/theme.wav", 650000, -1);
+			break;
+		case "Christmas": 
+			theme = new Sound("src/data/bells.wav", 650000, -1);
+			break;
+		case "Beach": 
+			theme = new Sound("src/data/theme.wav", 650000, -1);
+			break;
+		}
+		
 		
         
 		//Creates the text box with the results from the previous week.
@@ -156,10 +176,6 @@ public class RaspberryLanes {
 		mnFile.setBackground(new Color(255, 215, 0));
 		menuBar.add(mnFile);
 
-		//New Game feature currently a WIP
-		JMenuItem mntmNewGame = new JMenuItem("New Game");
-		mntmNewGame.setBackground(new Color(255, 255, 255));
-		mnFile.add(mntmNewGame);
 
 		//Saves data of player and horses
 		JMenuItem mntmSaveGame = new JMenuItem("Save Game");
@@ -171,7 +187,7 @@ public class RaspberryLanes {
 		
 		
 		//Animation of the actual race
-		stadium = new PaintRace(stable);
+		
 		stadium.setBounds(254, 100, 920, 575);
 		frame.getContentPane().add(stadium);
 		
@@ -200,7 +216,7 @@ public class RaspberryLanes {
 		labelAge.setBounds(1291, 232, 100, 16);
 		frame.getContentPane().add(labelAge);
 		
-		ImagePanel selectedHorse = new ImagePanel("src/horses/LogoN.png");
+		ImagePanel selectedHorse = new ImagePanel("src/data/LogoN.png");
 		selectedHorse.setBackground(darkNavy);
 		selectedHorse.setBounds(1291, 260, 100, 100);
 		frame.getContentPane().add(selectedHorse);
@@ -259,7 +275,7 @@ public class RaspberryLanes {
 		frame.getContentPane().add(txtCashOnBet);
 		txtCashOnBet.setColumns(10);
 
-		panel = new ImagePanel("src/horses/LogoN.png");
+		panel = new ImagePanel("src/data/LogoN.png");
 		panel.setBackground(darkNavy);
 		panel.setBounds(0, 159, 220, 203);
 		frame.getContentPane().add(panel);
@@ -333,64 +349,15 @@ public class RaspberryLanes {
 					return;
 				}
 				String money = txtCashOnBet.getText();
-				if(money.equals("santa")){
-					stadium.changeImage("src/horses/xmas.png");
-					stadium.christmas(true);
-					stadium.chocolate(false);
-					txtCashOnBet.setText("");
-					try {
-						theme.setSound("src/horses/bells.wav");
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					stadium.repaint();
-					
-				}
-				else if(money.equals("beach")){
-					stadium.changeImage("src/horses/beach.png");
-					stadium.christmas(false);
-					stadium.chocolate(false);
-					stadium.repaint();
-					try {
-						theme.setSound("src/horses/theme.wav");
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					txtCashOnBet.setText("");
-				}
-				else if(money.equals("reset")){
-					stadium.changeImage("src/horses/Track.png");
-					stadium.christmas(false);
-					stadium.chocolate(false);
-					try {
-						theme.setSound("src/horses/theme.wav");
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					txtCashOnBet.setText("");
-					stadium.repaint();
-				}
-				else if(money.equals("chocolate")){
-					stadium.changeImage("src/horses/CHOCOLATERAIN.png");
-					stadium.christmas(false);
-					stadium.chocolate(true);
-					try {
-						theme.setSound("src/horses/chocolate.wav");
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					txtCashOnBet.setText("");
-					stadium.repaint();
-				}
-				else if(money.equals("raspberry")){
+				
+				
+			
+				if(money.equals("raspberry")){
 					stable.racers.remove(9);
 					Horse raspberry = new Horse(1);
 					stable.racers.add(raspberry);
 					stadium.repaint();
+					
 				}
 				else if(money.equals("track")){
 					stable.racers.remove(9);
@@ -414,12 +381,15 @@ public class RaspberryLanes {
 					stadium.repaint();
 				}else {
 				int cash = Integer.parseInt(money);
+				
 				Bet bet = new Bet(comboBox.getSelectedItem().toString(), player.placeBet(cash), stable);
 				betList.bets.add(bet);
 				txtrSgg.setText(betList.toString());
 				lblPlayerName.setText(player.toString());
 
-			}}
+			}
+			txtCashOnBet.setText("");	
+			}
 		});
 
 	}

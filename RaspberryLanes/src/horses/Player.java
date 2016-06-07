@@ -10,14 +10,16 @@ public class Player {
 	public String name;
 	public Player(String name){
 		cash = 100;
+		this.name = name;
 	}
 	
 	public Player() throws NumberFormatException, FileNotFoundException{
-		ArrayList<ArrayList<String>> player = ReadFile.readfile("src/horses/Player.txt");
+		ArrayList<ArrayList<String>> player = ReadFile.readfile("src/data/Player.txt");
 		String[] fromFile = player.get(0).get(0).split(",");
 		name = fromFile[0];
 		cash = Double.parseDouble(fromFile[1]);
 	}
+	
 	public void advanceWeek(int earnings){
 		cash+= earnings; 
 		cash+= 100;
@@ -30,7 +32,7 @@ public class Player {
 		return bet;
 	}
 	public void saveToFile() throws FileNotFoundException, UnsupportedEncodingException{
-		PrintWriter writer = new PrintWriter("src/horses/Player.txt", "UTF-8");
+		PrintWriter writer = new PrintWriter("src/data/Player.txt", "UTF-8");
 		writer.println(this.toFile());
 		writer.close();
 	}

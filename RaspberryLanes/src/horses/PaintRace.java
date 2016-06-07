@@ -32,14 +32,31 @@ class PaintRace extends Canvas
 	private HorseList stable;
 	int gallop;
 	boolean xMas = false;
-	boolean chocolate = false;
-	int[][]snow = new int[500][2];
-	public PaintRace(HorseList racers)
+	boolean chocolateRain = false;
+	int[][]snow = new int[300][2];
+	public PaintRace(HorseList racers, String map)
 	{
 		setSize(920, 575);
 		setVisible(true);
 		setBackground(Color.blue);
-		setImage();
+		
+		switch(map){
+		case "Chocolate": 
+			setImage("src/data/chocolatemap.png");
+			chocolateRain = true;
+			break;
+		case "Classic": 
+			setImage("src/data/Track.png");
+			break;
+		case "Christmas": 
+			setImage("src/data/xmas.png");
+			xMas = true;
+			break;
+		case "Beach": 
+			setImage("src/data/beach.png");
+			break;
+		}
+		
 		for(int[] flake : snow){
 			flake[0] = (int) (Math.random() * 920);
 			flake[1] = (int) (Math.random() * 575);
@@ -97,8 +114,8 @@ class PaintRace extends Canvas
 	public void christmas(Boolean isMas){
 		xMas = isMas;
 	}
-	public void chocolate(Boolean chocolate){
-		this.chocolate = chocolate;
+	public void chocolate(boolean isLate){
+		chocolateRain = isLate;
 	}
 	
 	public boolean isActive(){
@@ -140,27 +157,30 @@ class PaintRace extends Canvas
 			}
 		
 			
-			int height = 3;
-			int width = 3;
-			int jump = 1;
 			
-			if(xMas || chocolate){
+			int height = 3;
+			int length = 3;
+			int speed = 1;
+			if(xMas || chocolateRain)
+			{
+				
 				if(xMas){
-					window.setColor(Color.white);
 					height = 3;
-					width = 3;
-					jump = 1;
-				}if(chocolate){
-					window.setColor(Color.blue);
+					length = 3;
+					speed = 1;
+					window.setColor(Color.white);
+				}if(chocolateRain){
 					height = 5;
-					width = 1;
-					jump = 4;
+					length = 1;
+					speed = 6;
+					window.setColor(Color.blue);
 				}
+				
 				
 				for(int[] snowflake : snow){
 					
-					window.fillRect(snowflake[0], snowflake[1], width, height);
-					snowflake[1] += jump;
+					window.fillRect(snowflake[0], snowflake[1], length, height);
+					snowflake[1] += speed;
 					if(snowflake[1] > 575){
 						snowflake[1] = 0;
 						snowflake[0] = (int)(Math.random() * 920);
@@ -173,22 +193,14 @@ class PaintRace extends Canvas
 		
 		
 	}	
-	public void setImage(){
+	public void setImage(String filename){
 		
 		 
 		    try {
-				 img = ImageIO.read(new File("src/horses/Track.png"));
+				 img = ImageIO.read(new File(filename));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 	}
-	public void changeImage(String filename){
-		
-		 
-	    try {
-			 img = ImageIO.read(new File(filename));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-}
+
 }
