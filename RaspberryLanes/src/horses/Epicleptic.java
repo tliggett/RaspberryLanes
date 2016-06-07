@@ -89,7 +89,7 @@ public class Epicleptic {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        
 
-		theme = new Sound("src/horses/chocolate.wav", 0, -1);
+		theme = new Sound("src/data/chocolate.wav", 0, -1);
 		theme.start();
         
 

@@ -55,6 +55,9 @@ class PaintRace extends Canvas
 		case "Beach": 
 			setImage("src/data/beach.png");
 			break;
+		case "Rainbow": 
+			setImage("src/data/RAINBOWROAD.png");
+			break;
 		}
 		
 		for(int[] flake : snow){
@@ -84,7 +87,7 @@ class PaintRace extends Canvas
 						
 					}
 					try {
-						RaspberryLanes.updateStuff();
+						RaspberryGUI.updateStuff();
 					} catch (NullPointerException | IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
