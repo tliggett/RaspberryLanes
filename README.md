@@ -122,6 +122,7 @@ public class HorseList {
 }
 
 class Horse implements Comparable<Horse> {
+	
 	int age;
 	int maxAge;
 	boolean canCompete;
