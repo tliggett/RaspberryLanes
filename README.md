@@ -12,6 +12,7 @@ A huge purpose of RL was to give its makers a purpose. Raspberry Lanes started a
 Problems were encountered in the creation of Raspberry Lanes. The major problem for the art team was the difficulty of finding a truly free software that could support the robust graphics. Once that software was found, however, the artists quickly got to work on multiple tracks, logos, and horse designs. The biggest problem encountered during coding had to do with static variables. The main method created and controlled a canvas class that painted the race (The PaintRace class). However, the PaintRace class needed a way to let the main method know when the race animation was over. This task proved to be the most challenging in the entire project. The eventual solution was to publicize the swing objects in the interface and call them outside the main method in a method called updateStuff(). This created the delay that was needed to continue the method. The last problem encountered in Raspberry Lanes had to do with the size of Music files. Have entire songs located inside the project created immense lag while the game was running. So, we fixed this problem by using GarageBand to shorten the audio files.
 
 public class HorseList {
+	
 	ArrayList<Horse> racers;
 
 	public HorseList(boolean isNew) throws NumberFormatException, IOException {
@@ -121,7 +122,6 @@ public class HorseList {
 }
 
 class Horse implements Comparable<Horse> {
-	
 	int age;
 	int maxAge;
 	boolean canCompete;
