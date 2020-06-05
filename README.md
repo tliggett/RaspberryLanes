@@ -4,7 +4,7 @@ T.J. Liggett, Michael Stefanko
 
 ## TO PLAY:
 ```
-javac \*.java
+javac *.java
 java Raspberry Lanes
 ```
 
