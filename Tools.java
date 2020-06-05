@@ -1,5 +1,3 @@
-package horses;
-
 public class Tools {
 	public static String timeToString(double numTime){
 

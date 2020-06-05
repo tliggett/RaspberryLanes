@@ -1,5 +1,3 @@
-package horses;
-
 import java.awt.Color;
 import java.awt.Image;
 import java.io.FileNotFoundException;
@@ -13,8 +11,8 @@ public class HorseList {
 	ArrayList<Horse> racers;
 
 	public HorseList(boolean isNew) throws NumberFormatException, IOException {
-		ArrayList<ArrayList<String>> horses = ReadFile.readfile("src/data/RaceHorses.txt");
-		ArrayList<ArrayList<String>> horsenames = ReadFile.readfile("src/data/HorseNameDatabase.txt");
+		ArrayList<ArrayList<String>> horses = ReadFile.readfile("resources/RaceHorses.txt");
+		ArrayList<ArrayList<String>> horsenames = ReadFile.readfile("resources/HorseNameDatabase.txt");
 		racers = new ArrayList<Horse>();
 		for (int i = 0; i < horses.size(); i++) {
 			String[] fr = horses.get(i).get(0).split(",");
@@ -56,7 +54,7 @@ public class HorseList {
 	}
 
 	public void saveToFile() throws FileNotFoundException, UnsupportedEncodingException {
-		PrintWriter writer = new PrintWriter("src/data/RaceHorses.txt", "UTF-8");
+		PrintWriter writer = new PrintWriter("resources/RaceHorses.txt", "UTF-8");
 		for (Horse racer : racers) {
 			writer.println(racer.toFile());
 		}
@@ -81,7 +79,6 @@ public class HorseList {
 
 	public double getHorseOdds(String horseName) {
 		double retu = 0;
-		Horse horse;
 		for (Horse racer : racers) {
 			if (racer.name.equals(horseName)) {
 				retu = (racer.calcScore()) / this.sumScore();
@@ -154,7 +151,7 @@ class Horse implements Comparable<Horse> {
 			maneColor = new Color(-403660);
 			saddleColor = new Color(-12865360);
 
-			graphic = new ImagePanel("src/data/LogoN.png");
+			graphic = new ImagePanel("resources/LogoN.png");
 			double x = 0;
 			colorGraphic();
 		}
@@ -173,7 +170,7 @@ class Horse implements Comparable<Horse> {
 			maneColor = new Color(-403660);
 			saddleColor = new Color(-12865360);
 
-			graphic = new ImagePanel("src/data/Track.png");
+			graphic = new ImagePanel("resources/Track.png");
 			double x = 0;
 		}
 		if (code == 3) {
@@ -191,7 +188,7 @@ class Horse implements Comparable<Horse> {
 			maneColor = new Color(-403660);
 			saddleColor = Color.RED;
 
-			graphic = new ImagePanel("src/data/trump.jpg");
+			graphic = new ImagePanel("resources/trump.jpg");
 			double x = 0;
 		}
 		if (code == 4) {
@@ -209,7 +206,7 @@ class Horse implements Comparable<Horse> {
 			maneColor = new Color(-403660);
 			saddleColor = Color.GREEN;
 
-			graphic = new ImagePanel("src/data/bolt.jpg");
+			graphic = new ImagePanel("resources/bolt.jpg");
 			double x = 0;
 		}
 	}
@@ -234,7 +231,7 @@ class Horse implements Comparable<Horse> {
 		while (saddleColor.getRGB() == maneColor.getRGB()) {
 			saddleColor = randomSaddleColor();
 		}
-		graphic = new ImagePanel("src/data/LogoN.png");
+		graphic = new ImagePanel("resources/LogoN.png");
 
 		double x = 0;
 		colorGraphic();
@@ -255,12 +252,10 @@ class Horse implements Comparable<Horse> {
 		furColor = new Color(Integer.parseInt(fromFile.get(8)));
 		maneColor = new Color(Integer.parseInt(fromFile.get(9)));
 		saddleColor = new Color(Integer.parseInt(fromFile.get(10)));
-		graphic = new ImagePanel("src/data/LogoN.png");
+		graphic = new ImagePanel("resources/LogoN.png");
 		for (int i = 11; i < fromFile.size(); i++) {
 			time.add(Double.parseDouble(fromFile.get(i)));
 		}
-
-		double x = 0;
 		colorGraphic();
 	}
 

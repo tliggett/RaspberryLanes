@@ -1,5 +1,3 @@
-package horses;
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -89,7 +87,7 @@ public class RaspberryGUI {
 	 */
 	public RaspberryGUI(boolean isNew, String playerName, String map) throws LineUnavailableException, Exception {
 
-		horsenames = ReadFile.readfile("src/data/HorseNameDatabase.txt");
+		horsenames = ReadFile.readfile("resources/HorseNameDatabase.txt");
 		stable = new HorseList(isNew);
 		betList = new BetList();
 		stadium = new PaintRace(stable, map);
@@ -122,19 +120,19 @@ public class RaspberryGUI {
        
 		switch(map){
 		case "Chocolate": 
-			theme = new Sound("src/data/chocolate.wav", 0, -1);
+			theme = new Sound("resources/chocolate.wav", 0, -1);
 			break;
 		case "Classic": 
-			theme = new Sound("src/data/theme.wav", 650000, -1);
+			theme = new Sound("resources/theme.wav", 650000, -1);
 			break;
 		case "Christmas": 
-			theme = new Sound("src/data/bells.wav", 650000, -1);
+			theme = new Sound("resources/bells.wav", 650000, -1);
 			break;
 		case "Beach": 
-			theme = new Sound("src/data/surfer.wav", 0, -1);
+			theme = new Sound("resources/surfer.wav", 0, -1);
 			break;
 		case "Rainbow": 
-			theme = new Sound("src/data/rroad.wav", 0, -1);
+			theme = new Sound("resources/rroad.wav", 0, -1);
 			break;
 		}
 		
@@ -219,7 +217,7 @@ public class RaspberryGUI {
 		labelAge.setBounds(1291, 232, 100, 16);
 		frame.getContentPane().add(labelAge);
 		
-		ImagePanel selectedHorse = new ImagePanel("src/data/LogoN.png");
+		ImagePanel selectedHorse = new ImagePanel("resources/LogoN.png");
 		selectedHorse.setBackground(darkNavy);
 		selectedHorse.setBounds(1291, 260, 100, 100);
 		frame.getContentPane().add(selectedHorse);
@@ -278,7 +276,7 @@ public class RaspberryGUI {
 		frame.getContentPane().add(txtCashOnBet);
 		txtCashOnBet.setColumns(10);
 
-		panel = new ImagePanel("src/data/LogoN.png");
+		panel = new ImagePanel("resources/LogoN.png");
 		panel.setBackground(darkNavy);
 		panel.setBounds(0, 159, 220, 203);
 		frame.getContentPane().add(panel);

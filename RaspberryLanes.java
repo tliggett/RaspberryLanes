@@ -1,5 +1,3 @@
-package horses;
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -113,7 +111,7 @@ public class RaspberryLanes {
 		frame.getContentPane().setLayout(null);
         frame.getContentPane().setBackground(new Color(0, 0,120));
 
-		theme = new Sound("src/data/theme.wav", 0, -1);
+		theme = new Sound("resources/theme.wav", 0, -1);
 		theme.start();
         
 		phaser = 0;
@@ -145,19 +143,19 @@ public class RaspberryLanes {
 				String str = comboBox.getSelectedItem().toString();
 				switch(str){
 				case "Chocolate":
-					animation.setImage("src/data/chocolatemap.png");
+					animation.setImage("resources/chocolatemap.png");
 					break;
 				case "Classic":
-					animation.setImage("src/data/Track.png");
+					animation.setImage("resources/Track.png");
 					break;
 				case "Christmas":
-					animation.setImage("src/data/xmas.png");
+					animation.setImage("resources/xmas.png");
 					break;
 				case "Beach":
-					animation.setImage("src/data/beach.png");
+					animation.setImage("resources/beach.png");
 					break;
 				case "Rainbow":
-					animation.setImage("src/data/RAINBOWROAD.png");
+					animation.setImage("resources/RAINBOWROAD.png");
 					break;
 				}
 			}

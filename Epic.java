@@ -1,12 +1,5 @@
-package horses;
-
-//© A+ Computer Science  -  www.apluscompsci.com
-//Name - 
-//Date -
-//Class -
-//Lab  -
-
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Window;
 import java.awt.Color;
@@ -19,48 +12,37 @@ import java.awt.event.ActionEvent;
 import javax.swing.Timer;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+
+import java.awt.AlphaComposite;
 import java.awt.Canvas;
 
-class PaintMenu extends Canvas
+class Epic extends Canvas
 {
 	private int x;
 	private int y;
 	int i;
-	int phase;
-	boolean isNew;
-	String name;
-	int map;
 	private Timer timer;
 	private final static int SLEEP = 30;  //bigger # = slower animation	
 	BufferedImage img = null;
-
-	public PaintMenu()
+	float alpha = 1f;
+	boolean xMas = false;
+	
+	public Epic()
 	{
-		setSize(450, 400);
+		setSize(1440, 860);
 		setVisible(true);
-		setBackground(Color.blue);
-		setImage("src/data/mixed.png");
-		i = 0;
-		phase = 0;
+		setBackground(random());
+		
+		
+
 		ActionListener paintCaller = new ActionListener(){
 			public void actionPerformed(ActionEvent event)
 			{
 				
-				i++;	
-				if(i==100){
-					setImage("src/data/studio.png");
-				}if(i == 200){
-					setImage("src/data/LogoN.png");
 					
-				}if(i == 300){
-					phase = 1;
-					setImage("src/data/Track.png");
-					
-				}
-		
-				repaint(); 
-				//each time timer fires it will call paint	
 				
+		
+				repaint();  //each time timer fires it will call paint	
 				
 			}
 		};
@@ -93,35 +75,36 @@ class PaintMenu extends Canvas
 	{
 		
 		 {
-			 window.setColor(Color.white);
-			 window.fillRect(0,0,getWidth(),getHeight());	
-			
-			if(phase == 0){
-				window.drawImage(img, 0, 0, 450,400, null);
-			}else if(phase ==1){
-				window.setColor(Color.white);
-				window.drawImage(img, 0, 0, 450,400, null);
-				
+			int it = (int) (Math.random() * 85) + 5;
+			for(int i = 0; i<1440; i+= it){
+				for(int j = 0; j<860; j+=it){
+					window.setColor(random());
+					window.fillRect(i, j, it, it);
+				}
 			}
-			
-			
-			
-			
-			
 			
 			  }
 
 		
 		
 	}	
-	public void setImage(String filename){
+	public Color random(){
+		int one =(int) (Math.random()*256); 
+		int two =(int) (Math.random()*256); 
+		int three =(int) (Math.random()*256); 
+		
+		return new Color(one,two,three);
 		
 		 
-		    try {
-				 img = ImageIO.read(new File(filename));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		   
 	}
-
+	public void changeImage(String filename){
+		
+		 
+	    try {
+			 img = ImageIO.read(new File(filename));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+}
 }

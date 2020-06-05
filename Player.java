@@ -1,5 +1,3 @@
-package horses;
-
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -14,7 +12,7 @@ public class Player {
 	}
 	
 	public Player() throws NumberFormatException, FileNotFoundException{
-		ArrayList<ArrayList<String>> player = ReadFile.readfile("src/data/Player.txt");
+		ArrayList<ArrayList<String>> player = ReadFile.readfile("resources/Player.txt");
 		String[] fromFile = player.get(0).get(0).split(",");
 		name = fromFile[0];
 		cash = Double.parseDouble(fromFile[1]);
@@ -32,7 +30,7 @@ public class Player {
 		return bet;
 	}
 	public void saveToFile() throws FileNotFoundException, UnsupportedEncodingException{
-		PrintWriter writer = new PrintWriter("src/data/Player.txt", "UTF-8");
+		PrintWriter writer = new PrintWriter("resources/Player.txt", "UTF-8");
 		writer.println(this.toFile());
 		writer.close();
 	}

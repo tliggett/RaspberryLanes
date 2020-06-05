@@ -1,11 +1,3 @@
-package horses;
-
-//© A+ Computer Science  -  www.apluscompsci.com
-//Name - 
-//Date -
-//Class -
-//Lab  -
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Window;
@@ -42,21 +34,21 @@ class PaintRace extends Canvas
 		
 		switch(map){
 		case "Chocolate": 
-			setImage("src/data/chocolatemap.png");
+			setImage("resources/chocolatemap.png");
 			chocolateRain = true;
 			break;
 		case "Classic": 
-			setImage("src/data/Track.png");
+			setImage("resources/Track.png");
 			break;
 		case "Christmas": 
-			setImage("src/data/xmas.png");
+			setImage("resources/xmas.png");
 			xMas = true;
 			break;
 		case "Beach": 
-			setImage("src/data/beach.png");
+			setImage("resources/beach.png");
 			break;
 		case "Rainbow": 
-			setImage("src/data/RAINBOWROAD.png");
+			setImage("resources/RAINBOWROAD.png");
 			break;
 		}
 		

@@ -1,5 +1,3 @@
-package horses;
-
 import java.util.ArrayList;
 
 public class BetList {
