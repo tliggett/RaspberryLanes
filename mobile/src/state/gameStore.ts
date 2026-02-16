@@ -8,7 +8,7 @@ import {
 } from "../models/types";
 import { generateInitialHorses, createSpecialHorse } from "../engine/HorseGenerator";
 import { getHorseOdds } from "../engine/OddsCalculator";
-import { runFullRace } from "../engine/RaceEngine";
+import { simulateAllHorses, processRaceResults } from "../engine/RaceEngine";
 import { STARTING_CASH, WEEKLY_ALLOWANCE } from "../utils/constants";
 
 interface GameActions {
@@ -20,8 +20,8 @@ interface GameActions {
   placeBet: (horseName: string, amount: number) => void;
   clearBets: () => void;
 
-  // Racing
-  startRace: () => RaceResult;
+  // Racing — two-phase: simulate sets up animation, finishRace processes results
+  simulateRace: () => void;
   finishRace: () => void;
   setIsRacing: (racing: boolean) => void;
 
@@ -32,6 +32,9 @@ interface GameActions {
   getOdds: (horseName: string) => number;
   getSaveData: () => GameState;
 }
+
+// Bets are stashed here between simulate and finish so they survive the state update
+let pendingBets: Bet[] = [];
 
 type GameStore = GameState & GameActions;
 
@@ -74,7 +77,6 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   placeBet: (horseName, amount) => {
     const { player, horses, bets } = get();
-    // Cap bet at available cash
     const actualBet = Math.min(amount, player.cash);
     if (actualBet <= 0) return;
 
@@ -98,10 +100,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   clearBets: () => set({ bets: [] }),
 
-  startRace: () => {
-    const { horses, bets, player, raceNumber } = get();
+  // Phase 1: Simulate only — compute furlongs/times, keep original lane order
+  simulateRace: () => {
+    const { horses, bets } = get();
 
-    // Deep clone horses so race simulation mutates the clones
+    // Deep clone horses for simulation
     const horsesClone = horses.map((h) => ({
       ...h,
       times: [...h.times],
@@ -109,26 +112,45 @@ export const useGameStore = create<GameStore>((set, get) => ({
       furlongs: [...h.furlongs],
     }));
 
-    const betsClone = bets.map((b) => ({ ...b }));
-    const result = runFullRace(horsesClone, betsClone);
+    // Simulate — computes furlongs and times but does NOT sort/retire/replace
+    simulateAllHorses(horsesClone);
 
-    // Apply weekly allowance + bet earnings
-    const newCash = player.cash + WEEKLY_ALLOWANCE + result.totalEarnings;
+    // Stash bets for processing after animation
+    pendingBets = bets.map((b) => ({ ...b }));
 
+    // Update horses with simulation data (furlongs + times) — same lane order
     set({
       horses: horsesClone,
       bets: [],
+      isRacing: true,
+    });
+  },
+
+  // Phase 2: After animation — sort, retire, replace, process bets, update cash
+  finishRace: () => {
+    const { horses, player, raceNumber } = get();
+
+    // Deep clone again since processRaceResults mutates (sort, splice, push)
+    const horsesClone = horses.map((h) => ({
+      ...h,
+      times: [...h.times],
+      places: [...h.places],
+      furlongs: [...h.furlongs],
+    }));
+
+    const result = processRaceResults(horsesClone, pendingBets);
+    pendingBets = [];
+
+    const newCash = player.cash + result.totalEarnings;
+
+    set({
+      horses: horsesClone,
       player: { ...player, cash: newCash },
       raceNumber: raceNumber + 1,
       lastRaceResult: result,
+      isRacing: false,
       gameOver: newCash <= 0,
     });
-
-    return result;
-  },
-
-  finishRace: () => {
-    set({ isRacing: false });
   },
 
   setIsRacing: (racing) => set({ isRacing: racing }),
@@ -137,10 +159,9 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const { horses } = get();
     const special = createSpecialHorse(code);
     const newHorses = [...horses];
-    // Replace last horse(s) like the original
-    if (code === 1) newHorses.splice(9, 1, special); // raspberry replaces 10th
-    if (code === 3) newHorses.splice(8, 1, special); // trump replaces 9th
-    if (code === 4) newHorses.splice(7, 1, special); // bolt replaces 8th
+    if (code === 1) newHorses.splice(9, 1, special);
+    if (code === 3) newHorses.splice(8, 1, special);
+    if (code === 4) newHorses.splice(7, 1, special);
     set({ horses: newHorses });
   },
 

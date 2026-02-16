@@ -39,8 +39,7 @@ export default function GameScreen() {
   const {
     horses,
     isRacing,
-    setIsRacing,
-    startRace,
+    simulateRace,
     finishRace,
     lastRaceResult,
     currentTrack,
@@ -54,28 +53,31 @@ export default function GameScreen() {
   const handleRace = useCallback(() => {
     if (isRacing) return;
 
-    // Run simulation synchronously (pre-compute results)
-    const result = startRace();
+    // Phase 1: Simulate only — computes furlongs/times, keeps lane order
+    simulateRace();
 
     // Start track music and animation
     playTrackMusic(currentTrack);
-    setIsRacing(true);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-  }, [isRacing, startRace, setIsRacing, currentTrack, playTrackMusic]);
+  }, [isRacing, simulateRace, currentTrack, playTrackMusic]);
 
   const handleRaceFinish = useCallback(() => {
     stopMusic();
+
+    // Phase 2: Sort, retire, replace, process bets
     finishRace();
     setShowResults(true);
     setSelectedHorse(null);
 
-    if (lastRaceResult) {
-      const hasWin = lastRaceResult.betOutcomes.some((bo) => bo.bet.won);
+    // Check for winning bets (read fresh from store after finishRace)
+    const result = useGameStore.getState().lastRaceResult;
+    if (result) {
+      const hasWin = result.betOutcomes.some((bo) => bo.bet.won);
       if (hasWin) {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       }
     }
-  }, [finishRace, lastRaceResult, stopMusic]);
+  }, [finishRace, stopMusic]);
 
   const handleResultsClose = useCallback(() => {
     setShowResults(false);
