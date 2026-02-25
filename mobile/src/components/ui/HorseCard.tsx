@@ -23,6 +23,8 @@ export default function HorseCard({ horse, odds, selected }: HorseCardProps) {
 
       <Text style={styles.name} numberOfLines={1}>
         {horse.name}
+        {horse.places.filter((p) => p === 1).length > 0 &&
+          " " + "\uD83C\uDFC6".repeat(horse.places.filter((p) => p === 1).length)}
       </Text>
 
       <View style={styles.statsRow}>
